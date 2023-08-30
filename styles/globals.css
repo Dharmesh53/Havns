@@ -1,0 +1,204 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Satisfy&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  box-sizing: border-box;
+}
+body {
+  overflow-x: hidden;
+}
+
+.havns {
+  font-family: Dancing Script;
+  color: #ef4444;
+  font-size: 1.8rem;
+}
+.navbar {
+  @apply flex items-center p-3 rounded-full gap-60 relative;
+  user-select: none;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.photocard {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.location,.custom-input {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.search_input {
+  @apply border border-gray-300  w-96 rounded-full p-2 text-black focus:outline-none focus:ring-0;
+}
+.search_btn {
+  @apply rounded-full bg-red-500 text-white absolute top-[0.3rem] right-2 p-2;
+}
+
+.search_box:focus-within,
+.detail_input:focus-within {
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.user:hover {
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.profile {
+  user-select: none;
+}
+
+.dropdown {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  z-index: 99;
+}
+.dropdown-enter {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.dropdown-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.dropdown-exit {
+  opacity: 1;
+}
+
+.dropdown-exit-active {
+  opacity: 0;
+  transform: translate(-10px);
+  transition: opacity 500ms transform 500ms;
+}
+
+.host {
+  position: relative;
+  overflow: hidden;
+  color: #18181a;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.host span {
+  color: white;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  transition: all 500ms cubic-bezier(0.48, 0, 0.12, 1);
+  z-index: 100;
+  font-size: 1.3rem;
+  font-family: Satisfy;
+  opacity: 0;
+  top: 50%;
+  pointer-events: none;
+  left: 50%;
+  transform: translateY(225%) translateX(-50%);
+  height: 14px;
+  line-height: 30px;
+}
+
+.host:after {
+  content: "";
+  position: absolute;
+  bottom: -50%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  transform-origin: bottom center;
+  transition: transform 600ms cubic-bezier(0.48, 0, 0.12, 1);
+  transform: skewY(9.3deg) scaleY(0);
+  pointer-events: none;
+  z-index: 50;
+}
+
+.host:hover:after {
+  transform-origin: bottom center;
+  transform: skewY(9.3deg) scaleY(2);
+}
+
+.host:hover span {
+  transform: translateX(-50%) translateY(-100%);
+  opacity: 1;
+  transition: all 900ms cubic-bezier(0.48, 0, 0.12, 1);
+}
+.custom-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-input::before {
+  content: "Select some images";
+  display: inline-block;
+  background:  #f9f9f9;
+  border: 1px solid #999;
+  border-radius: 10px;
+  padding: 12px 12px;
+  outline: none;
+  font-family: Inter;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  transition: 200ms ease-out;
+  font-size: 10pt;
+}
+.custom-input:hover::before {
+  border-color: black;
+}
+.custom-input:active::before {
+   background-color: #F7F7F7;
+  border-color: #000000;
+}
+
+@media (max-width: 650px) {
+  .loginbox {
+    @apply flex mt-0;
+  }
+  .left {
+    @apply mt-16 bg-white rounded-xl py-10 px-8;
+  }
+  .right {
+    @apply max-w-none fixed;
+  }
+  .login_bg {
+    @apply rounded-none w-full;
+  }
+  .right {
+    @apply absolute opacity-10 contrast-50 z-[-1];
+  }
+}
+@media (min-device-width: 650px) and (max-device-width: 900px) {
+  .form {
+    @apply w-[18rem];
+  }
+  .leftup {
+    @apply text-3xl;
+  }
+}
+@media (max-width: 768px) {
+  .navbar {
+    @apply w-full rounded-none gap-4 justify-between;
+    box-shadow: none;
+  }
+  .search_box {
+    @apply absolute top-16  w-full mt-3 pr-5;
+  }
+  .search_box:focus-within {
+    box-shadow: none;
+  }
+  .search_btn {
+    @apply mr-5;
+  }
+}
+@media (min-device-width: 768px) and (max-device-width: 1168px) {
+  .navbar {
+    @apply gap-14;
+  }
+}

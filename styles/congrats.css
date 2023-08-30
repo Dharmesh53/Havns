@@ -1,0 +1,67 @@
+/* styles.css (in the same folder as pages/index.js) */
+body{
+  overflow-y: hidden;
+}
+.js-container {
+  position: relative;
+}
+
+.confetti-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.confetti {
+  position: absolute;
+  will-change: transform;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+}
+
+.confetti--animation-slow {
+  animation: confetti-fall 4s linear infinite;
+}
+
+.confetti--animation-medium {
+  animation: confetti-fall 2s linear infinite;
+}
+
+.confetti--animation-fast {
+  animation: confetti-fall 1s linear infinite;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-50px);
+  }
+  100% {
+    transform: translateY(calc(100vh + 50px));
+  }
+}
+
+.js-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.confetti-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.confetti {
+  position: absolute;
+  will-change: transform;
+  pointer-events: none;
+  border-radius: 5px; /* Make the confetti square-shaped */
+  background-color: #EF2964; /* You can set a default background color here */
+}
