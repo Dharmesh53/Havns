@@ -1,17 +1,17 @@
-import Image from "next/image";
+import ImageBox from "./ImageBox";
+import { dynamicBlurDataUrl } from "@utils/dynamicBlurData";
 import Link from "next/link";
 
-const Hallcard = ({ title, photo, location, capacity, price,id }) => {
+const Hallcard = async({ title, photo, location, capacity, price,id }) => {
+  const placer = await dynamicBlurDataUrl(photo);
   return (
     <Link href={`/hall?id=${id}`}>
-      <div className="border rounded-xl h-[22rem]">
+      <div className="border rounded-xl h-[22rem] hallcard duration-300 ease-out">
         <div className="overflow-hidden flex items-center rounded-t-xl h-1/2">
-          <Image
-            src={photo}
-            alt="image"
-            layout="intrinsic"
-            width={300}
-            height={300}
+          <ImageBox
+            link={photo}
+            placeholder={placer}
+            feed = {true}
           />
         </div>
         <div className="relative h-1/2 w-[300px] p-3">

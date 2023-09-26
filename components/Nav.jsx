@@ -63,7 +63,7 @@ const Nav = () => {
                     className="rounded-full"
                   />
                 ) : (
-                  <span className="text-white bg-[#ef4444] text-xl font-light w-[2.8rem] h-[2.8rem] flex items-center justify-center rounded-full caret-transparent profile">
+                  <span className="text-white bg-[#ef4444] text-xl font-medium w-[2.8rem] h-[2.8rem] flex items-center justify-center rounded-full caret-transparent profile">
                     {session.user.email.toUpperCase().toString()[0]}
                   </span>
                 )
