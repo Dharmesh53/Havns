@@ -1,4 +1,5 @@
 "use client";
+import dynamic from 'next/dynamic'
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { PiMapPinBold } from "react-icons/pi";
@@ -7,6 +8,10 @@ import { getData } from "./data";
 import ImgSkeleton from "./ImgSkeleton";
 import Description from "./description";
 
+const Map = dynamic(() => import('@components/map'), {
+  loading: () => <p>Loading...</p>,
+})
+ 
 const Page = async () => {
   const [data, setData] = useState({});
   const searchParams = useSearchParams();
@@ -16,9 +21,8 @@ const Page = async () => {
       const temp = await getData(locationId);
       setData(temp);
     };
-    // fetcher();
+    fetcher();
   }, [locationId]);
-  //TODO:Add virtuall tour and vegitration description
   return (
     <div className="flex justify-center items-center ">
       <div className="flex justify-center w-[79vw]">
@@ -35,6 +39,7 @@ const Page = async () => {
             {data.photos && <Images value={data.photos} />}
           </section>
           <Description info={data} />
+          <Map />
         </div>
       </div>
     </div>

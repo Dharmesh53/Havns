@@ -1,6 +1,7 @@
 import Prices from "./prices";
 import Host from "./host";
 import Facility from "./facilities";
+import Tour from "./tour";
 
 const description = ({ info }) => {
   return (
@@ -21,6 +22,10 @@ const description = ({ info }) => {
         <div className="flex flex-col gap-3">
           <h1 className="font-bold text-2xl">Meet your Host </h1>
           <Host data={info.host} />
+        </div>
+        <div className="flex flex-col gap-3">
+          <h1 className="font-bold text-2xl">Arrange a Virtual Tour </h1>
+          <Tour />
         </div>
       </div>
       <div className="w-[25%]">

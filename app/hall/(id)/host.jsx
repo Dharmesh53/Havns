@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import formatDistance from "date-fns/formatDistance";
 import { getHost } from "./hostData";
 
 const host = async (data) => {
@@ -11,18 +12,25 @@ const host = async (data) => {
     };
     fetcher();
   }, [data]);
+  let date = Info?.createdAt && formatDistance(new Date(Info?.createdAt), new Date());
   return (
-    <div className="border-2 rounded-xl">
-      <div className="flex">
-        <div className="rounded-full p-2">
-          <div className="bg-black text-white text-xl font-semibold items-center p-5 align-middle flex justify-center  rounded-full">
-            {/* {(Info?.name || "").toUpperCase().charAt(0)} */}T
+    <div className="border-2 rounded-xl ">
+      <div className="flex p-2 gap-4 ">
+        <div className="rounded-full">
+          <div className="bg-black text-white text-xl font-semibold items-center p-4 align-middle flex justify-center rounded-xl">
+            {(Info?.name || "").toUpperCase().charAt(0)}
           </div>
         </div>
         <div>
-          <div>{Info?.name} Turbo</div>
-          <div>{Info?.email}sjdbfdj@jdjd.com</div>
-          <div>{Info?.createdAt}2033-05-04</div>
+          <div className="font-medium text-lg">
+            Hosted by{" "}
+            {Info?.name &&
+              (Info?.name).toUpperCase().charAt(0) + (Info?.name).slice(1)}
+          </div>
+          <div className="text-base text-gray-500 flex gap-1">
+            <span>{Info?.email} &#183;</span>
+            <span> {date && date.toUpperCase().charAt(0) + (date).slice(1)} of hosting</span>
+          </div>
         </div>
       </div>
     </div>
