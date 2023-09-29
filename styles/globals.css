@@ -250,6 +250,14 @@ img {
   animation-play-state: paused;
 }
 
+.leaflet-control-attribution {
+  visibility: hidden !important;
+}
+.leaflet-right {
+  scale: 0.75 !important;
+}
+
+
 @media (max-width: 650px) {
   .loginbox {
     @apply flex mt-0;

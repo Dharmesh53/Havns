@@ -20,19 +20,15 @@ const locater = ({ Address, setAddress }) => {
     setLoader(true);
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(async (position) => {
-        const url = `https://feroeg-reverse-geocoding.p.rapidapi.com/address?lat=${position.coords.latitude}&lon=${position.coords.longitude}&lang=en&mode=text&format='%5BSN%5B%2C%20%5D%20-%20%5B23456789ab%5B%2C%20%5D'`;
+        const url = `https://geocode.maps.co/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}`;
         const options = {
           method: "GET",
-          headers: {
-            "X-RapidAPI-Key": process.env.NEXT_PUBLIC_MAPS_API_KEY,
-            "X-RapidAPI-Host": "feroeg-reverse-geocoding.p.rapidapi.com",
-          },
         };
         try {
           const response = await fetch(url, options);
           const data = await response.text();
           setLoader(false);
-          setAddress({ ...Address, loca: data});
+          setAddress({ ...Address, loca: data.display_name});
         } catch (error) {
           console.error(error);
         }
