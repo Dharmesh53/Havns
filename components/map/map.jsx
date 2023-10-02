@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 import getMap from "./leaflet";
 
 export default function Map({ location }) {
-  const [Cord, setCord] = useState({ lat: 51.505, lng: 0.09 });
+  const [Cord, setCord] = useState({ lat: 0.000, lng: 0.000});
 
   useEffect(() => {
     const fetcher = async () => {

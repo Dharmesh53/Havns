@@ -50,7 +50,7 @@ export default async function leaflet(Coordinates) {
     L.control.layers(baseLayers).addTo(map);
 
     var Bigcircle = L.circle([lat, lng], {
-      radius: 350,
+      radius: 250,
     }).addTo(map);
 
     var Smcircle = L.circle([lat, lng], {

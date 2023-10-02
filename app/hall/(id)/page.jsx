@@ -7,6 +7,7 @@ import Images from "@components/Images";
 import { getData } from "./data";
 import ImgSkeleton from "./ImgSkeleton";
 import Description from "./description";
+import WriteReview from "@components/rating/write";
 
 const Map = dynamic(() => import("@components/map/map"), {
   loading: () => <p>Loading...</p>,
@@ -22,7 +23,7 @@ const Page = async () => {
       const temp = await getData(locationId);
       setData(temp);
     };
-    // fetcher();
+    fetcher();
   }, [locationId]);
   return (
     <div className="flex justify-center items-center ">
@@ -39,8 +40,18 @@ const Page = async () => {
             {!data.photos && <ImgSkeleton />}
             {data.photos && <Images value={data.photos} />}
           </section>
-          <Description info={data} />
-          <Map location={data.location ? data.location : "New york City NY USA"} />
+          <section>
+            <Description info={data} />
+          </section>
+          <section>
+            {!data.location && ""}
+            {data.location && (
+              <Map location={data.location ? data.location : "Kota India"} />
+            )}
+          </section>
+          <section>
+            <WriteReview />
+          </section>
         </div>
       </div>
     </div>
