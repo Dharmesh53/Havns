@@ -50,7 +50,7 @@ const Page = async () => {
             )}
           </section>
           <section>
-            <WriteReview />
+            <WriteReview Id = {locationId}/>
           </section>
         </div>
       </div>

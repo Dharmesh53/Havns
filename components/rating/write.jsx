@@ -1,11 +1,35 @@
 import { useState } from "react";
 import Stars from "./stars";
+import { useRouter } from "next/navigation";
 
-const write = () => {
+const write = ({Id}) => {
+  const router = useRouter();
   const [Rating, setRating] = useState(0);
-  const handleSubmit = (event) => {
+  const [FeedBack, setFeedBack] = useState("");
+  const [Result, setResult] = useState("");
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.loog(Rating)
+    if (Rating === 0) return;
+    const data = {Id, Rating, FeedBack };
+    try {
+      const res = await fetch("/api/review/new", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+      if (res.status === 404) {
+        router.push("/signin");
+      }
+      if (res.status === 200) {
+        setResult("Done!!");
+        setInterval(() => {
+          setResult("");
+        }, 5000);
+      }
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleRating = (Rating) => {
     setRating(Rating);
@@ -26,15 +50,21 @@ const write = () => {
             placeholder="Give your FeedBack"
             rows={10}
             cols={50}
+            value={FeedBack}
+            onChange={(event) => setFeedBack(event.target.value)}
             className="p-3 outline rounded-xl"
             required
           />
-          <button
-            type="submit"
-            className="absolute right-0 bottom-0 m-3 cursor-pointer"
-          >
-            Submit
-          </button>
+          {Result == "" ? (
+            <button
+              type="submit"
+              className="absolute left-0 bottom-0 m-3 cursor-pointer"
+            >
+              Submit
+            </button>
+            ) : (
+            <div className="absolute left-0 bottom-0 m-3">{Result}</div>
+          )}
         </div>
       </form>
     </div>
