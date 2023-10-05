@@ -6,15 +6,16 @@ export async function getData(locationId) {
     const photoRes = await fetch(`api/photos/${locationData._id}`);
     const photoData = await photoRes.json();
 
-    const locatWithPhoto = {
+    const accumulate = {
       ...locationData,
       photos: photoData.map((photo) => photo.secure_url),
     };
-    locatWithPhoto.photos.push(
+    
+    accumulate.photos.push(
       "https://res.cloudinary.com/dkux7gsfb/image/upload/v1693753920/nextjs_upload/Dewan-hall_k9p5z6.jpg"
     );
     
-    return locatWithPhoto;
+    return accumulate;
   } catch (error) {
     console.error("Error fetching data:", error);
   }

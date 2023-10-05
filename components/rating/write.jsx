@@ -26,7 +26,6 @@ const write = ({Id}) => {
           setResult("");
         }, 5000);
       }
-      console.log(res);
     } catch (error) {
       console.log(error);
     }

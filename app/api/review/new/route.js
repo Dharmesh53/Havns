@@ -13,12 +13,12 @@ export const POST = async (req, res) => {
     }
     const { Id, Rating, FeedBack } = await req.json();
     const review = new Review({
-      UserId: session.user._id,
       HallId: Id,
+      name: session.user.name,
+      image:session.user.image,
       stars: Rating,
       feedback: FeedBack,
     });
-    console.log(review);
     await review.save();
     return new Response("ok", { status: 200 });
   } catch (error) {
