@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Stars from "./stars";
 import { useRouter } from "next/navigation";
+import Stars from "./stars";
 
 const write = ({Id}) => {
   const router = useRouter();

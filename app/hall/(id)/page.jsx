@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { PiMapPinBold } from "react-icons/pi";
 import Images from "@components/Images";
+import WriteReview from "@components/rating/write";
 import { getData } from "./data";
 import ImgSkeleton from "./ImgSkeleton";
 import Description from "./description";
-import WriteReview from "@components/rating/write";
+import Reviews from "@components/reviews/AllReviews"
 
 const Map = dynamic(() => import("@components/map/map"), {
   loading: () => <p>Loading...</p>,
@@ -50,7 +51,8 @@ const Page = async () => {
             )}
           </section>
           <section>
-            <WriteReview Id = {locationId}/>
+            {/* <WriteReview Id = {locationId} /> */}
+            <Reviews />
           </section>
         </div>
       </div>
