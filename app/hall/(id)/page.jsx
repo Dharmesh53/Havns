@@ -8,7 +8,8 @@ import WriteReview from "@components/rating/write";
 import { getData } from "./data";
 import ImgSkeleton from "./ImgSkeleton";
 import Description from "./description";
-import Reviews from "@components/reviews/AllReviews"
+import Reviews from "@components/reviews/AllReviews";
+import Footer from "./footer";
 
 const Map = dynamic(() => import("@components/map/map"), {
   loading: () => <p>Loading...</p>,
@@ -24,10 +25,10 @@ const Page = async () => {
       const temp = await getData(locationId);
       setData(temp);
     };
-    fetcher();
+    // fetcher();
   }, [locationId]);
   return (
-    <div className="flex justify-center items-center ">
+    <div className="flex justify-center flex-col items-center mt-8">
       <div className="flex justify-center w-[79vw]">
         <div className="flex flex-col gap-10">
           <section>
@@ -56,6 +57,7 @@ const Page = async () => {
           </section>
         </div>
       </div>
+        <Footer />
     </div>
   );
 };

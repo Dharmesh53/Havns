@@ -27,11 +27,11 @@ export default function Map({ location }) {
       const result = await response.json();
       setCord({
         lat: result[0].lat,
-        lng: result[0].lon,
+        lng: result[0].lon
       });
     } catch (error) {
       console.error(error);
     }
   };
-  return <div id="map" className="h-[50vh] rounded-2xl"></div>;
+  return <div id="map" className="h-[63vh] rounded-2xl"></div>;
 }

@@ -257,7 +257,6 @@ img {
   scale: 0.75 !important;
 }
 
-
 @media (max-width: 650px) {
   .loginbox {
     @apply flex mt-0;
