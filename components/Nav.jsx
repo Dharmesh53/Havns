@@ -4,7 +4,7 @@ import Link from "next/link";
 import { BiUser,BiSearch,BiUserPlus,BiLogInCircle,BiHelpCircle,BiMessageRounded,} from "react-icons/bi";
 import { AiOutlineHeart } from "react-icons/ai";
 import { IoMdLogOut } from "react-icons/io";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
@@ -24,8 +24,8 @@ const Nav = () => {
   }, [Dropdown]);
 
   return (
-    <div className="flex justify-center  ">
-      <div className="navbar">
+    <div className="flex justify-center">
+      <div className="navbar ">
         <div className="p-2 text-2xl font-semibold caret-transparent">
           <Link href="/" className="havns text-2xl">
             Havns
@@ -41,7 +41,7 @@ const Nav = () => {
             <BiSearch />
           </button>
         </div>
-        <div className="flex items-center gap-2 ">
+        <div className="flex items-center gap-2">
           <Link href="/protected/become-host">
             <button className="text-md font-medium host rounded-full p-3 border border-gray-300 hover:bg-gray-100 ease-out duration-300 max-[426px]:p-2">
               Become a host
@@ -72,13 +72,14 @@ const Nav = () => {
               )}
             </span>
           </button>
-
+        </div>
+        <AnimatePresence>
           {Dropdown && (
             <motion.div
               initial={{ opacity: 0, y: -15 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              className="dropdown flex flex-col text-base bg-white absolute top-20 right-2 py-2 rounded-xl "
+              exit={{ opacity: 0, y: -5 }}
+              className="dropdown -z-50 flex flex-col text-base bg-white absolute top-20 right-2 py-2 rounded-xl "
             >
               {session?.user ? (
                 <>
@@ -143,7 +144,7 @@ const Nav = () => {
               )}
             </motion.div>
           )}
-        </div>
+        </AnimatePresence>
       </div>
     </div>
   );
@@ -160,5 +161,5 @@ const Dropdownitem = (props) => {
     </button>
   );
 };
- 
+
 export default Nav;

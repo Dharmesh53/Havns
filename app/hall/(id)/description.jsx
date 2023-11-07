@@ -13,7 +13,6 @@ const description = ({ info }) => {
             {info.description ? info.description : "loading...."}
           </p>
         </div>
-
         <hr />
         <Part
           heading={"Servies Provided"}

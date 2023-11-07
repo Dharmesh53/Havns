@@ -1,6 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Tour = () => {
   const [showDetails, setShowDetails] = useState(false);
@@ -14,27 +14,28 @@ const Tour = () => {
         <button
           role="button"
           className="duration-200 virtual active:scale-90"
-          onClick={() => setShowDetails(p => !p)}
+          onClick={() => setShowDetails(true)}
         >
           <span className="font-medium">Check Out</span>
         </button>
       </div>
-      {showDetails && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          className="border-2 rounded-xl z-[-1] p-4"
-        >
-          <form action="submit" className="flex justify-between">
-            <div className="flex flex-row">
-                <input type="date" name="date" id="def" />
-                <input type="time" name="time" id="fds" />
-            </div>
-            <button type="submit">Submit</button>
-          </form>
-        </motion.div>
-      )}
+      <AnimatePresence>
+        {showDetails && (
+          <motion.div
+            initial={{ opacity: 0, y: -60 }}
+            animate={{ opacity: 1, y: 10 }}
+            exit={{ opacity: 0, y: -60 }}
+            className="border-2 rounded-xl z-[-1] p-4"
+          >
+            <form action="submit" className="flex justify-between">
+              <div>
+                <input type="date" name="date" />
+              </div>
+              <button type="submit">Submit</button>
+            </form>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

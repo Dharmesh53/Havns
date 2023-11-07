@@ -28,8 +28,8 @@ const facilties = ({ points }) => {
   ];
   return (
     <div className="grid grid-flow-row grid-cols-2 grid-rows-2 gap-2">
-      {temp.map(({i, name, icon, data }) => (
-        <div key={i} className="border-2 flex text-lg p-4 rounded-lg justify-between point">
+      {temp.map(({name, icon, data }) => (
+        <div key={name} className="border-2 flex text-lg p-4 rounded-lg justify-between point">
           <div className="flex items-baseline gap-3">
             <span className="icon duration-150">{icon}</span>
             <span>{name}</span>

@@ -4,6 +4,6 @@ export async function getHost(id) {
         const hostData= await hostRes.json()
         return hostData
     } catch (error) {
-        console.log("Error",error)
+        return new Response(error.message)
     }
 }
