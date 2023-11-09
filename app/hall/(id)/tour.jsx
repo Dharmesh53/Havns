@@ -13,7 +13,7 @@ const Tour = () => {
         </span>
         <button
           role="button"
-          className="duration-200 virtual active:scale-90"
+          className="duration-200 virtual active:scale-[95%]"
           onClick={() => setShowDetails(true)}
         >
           <span className="font-medium">Check Out</span>
@@ -21,19 +21,22 @@ const Tour = () => {
       </div>
       <AnimatePresence>
         {showDetails && (
-          <motion.div
-            initial={{ opacity: 0, y: -60 }}
-            animate={{ opacity: 1, y: 10 }}
-            exit={{ opacity: 0, y: -60 }}
-            className="border-2 rounded-xl z-[-1] p-4"
-          >
-            <form action="submit" className="flex justify-between">
-              <div>
-                <input type="date" name="date" />
-              </div>
-              <button type="submit">Submit</button>
-            </form>
-          </motion.div>
+          <>
+            <motion.div
+              initial={{ opacity: 0, y: -60 }}
+              animate={{ opacity: 1, y: 10 }}
+              exit={{ opacity: 0, y: -60 }}
+              className="border-2 rounded-xl  p-4"
+            >
+              <form action="submit" className="flex justify-between ">
+                <div className="flex gap-5">
+                  <input type="date" name="date" />
+                  <input type="time" name="time" />
+                </div>
+                <button type="submit">Submit</button>
+               </form>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </div>

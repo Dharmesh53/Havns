@@ -86,7 +86,7 @@ const Nav = () => {
                   <Dropdownitem
                     icon={<BiMessageRounded />}
                     onClick={() => {
-                      router.push("/protected/messeges");
+                      router.push("/protected/messages");
                       setDropdown(false);
                     }}
                     option="Messages"
