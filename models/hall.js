@@ -7,6 +7,7 @@ const hallSchema = new Schema({
   },
   location: {
     type: String,
+    default: "",
   },
   halls: {
     type: Number,
@@ -40,17 +41,17 @@ const hallSchema = new Schema({
     type: Number,
     default: 0,
   },
-  title:{
+  title: {
     type: String,
   },
-  description:{
+  description: {
     type: String,
   },
-  done:{
-    type:Boolean,
-  }
+  done: {
+    type: Boolean,
+  },
 });
 
-const HallModel=models.hall||model("hall",hallSchema);
+const HallModel = models.hall || model("hall",hallSchema);
 
-module.exports=HallModel
+module.exports = HallModel

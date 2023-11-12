@@ -8,14 +8,14 @@ export const POST = async (req, res) => {
   try {
     await connectToDB();
     const session = await getServerSession(authOptions);
-    const { location } = await req.json();
-    const newHall = new Hall({
+    const newHall = await Hall.create({
       host: session?.user._id,
-      location: location,
     });
-    await newHall.save();
-    return new Response("success", { status: 200 });
-  } catch (e) {
-    return new Response(e, { status: 500 });
+    const responseData = {
+        _id:newHall._id,
+    }
+    return new Response(JSON.stringify(responseData), { status: 200 });
+  } catch (error) {
+    return new Response(error, { status: 500 });
   }
 };

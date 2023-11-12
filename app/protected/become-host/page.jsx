@@ -1,12 +1,16 @@
 "use client";
+import { useContext } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import Wrapper from "@components/Wrapper";
+import locationContext from "@context/locateContext";
 import { GiCrystalGrowth } from "react-icons/gi";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { LiaHandshake } from "react-icons/lia";
 import { GiCheckMark } from "react-icons/gi";
 import { BsHeadset } from "react-icons/bs";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import Wrapper from "@components/Wrapper";
+
 const page = () => {
   const data = [
     {
@@ -37,9 +41,27 @@ const page = () => {
       icon: <BsHeadset />,
     },
   ];
+  const { Address, setAddress } = useContext(locationContext);
+  const router = useRouter();
+
+  const creator = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/hall/create", {
+        method: "POST",
+      });
+      const data = await res.json();
+      let locID = data._id;
+      if (locID) {
+        setAddress({ ...Address, locID: locID });
+        router.push(`/protected/become-host?loc=${locID}/places`);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
-
     <div className="flex flex-col justify-center items-center mx-32">
       <div className="flex justify-center items-center mt-4">
         <Wrapper>
@@ -75,8 +97,11 @@ const page = () => {
         initial={{ opacity: 0, y: 150 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <Link href="/protected/become-host/places">
-          <button className="bg-black hover:bg-white hover:text-black border-2 border-white duration-300 hover:border-black text-white font-bold py-3 px-6 mt-10 rounded-full ">
+        <Link href={``}>
+          <button
+            className="bg-black hover:bg-white hover:text-black border-2 border-white duration-300 hover:border-black text-white font-bold py-3 px-6 mt-10 rounded-full "
+            onClick={creator}
+          >
             Get Started
           </button>
         </Link>

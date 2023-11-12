@@ -6,6 +6,7 @@ const locationContext = createContext({});
 export const LocationProvider = ({ children }) => {
   const [Address, setAddress] = useState({
     loca: "", 
+    locID:""
   });
 
   return (

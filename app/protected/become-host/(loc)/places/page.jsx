@@ -1,6 +1,6 @@
 "use client";
-import Footer from "../footer";
-import Layout from "../layout";
+import Footer from "../../footer";
+import Layout from "../../layout";
 import Locater from "./locater";
 import locationContext from "@context/locateContext";
 import { useContext, useState } from "react";
@@ -13,22 +13,22 @@ const page = () => {
   const { Address, setAddress } = useContext(locationContext);
 
   const postlocation = async (e) => {
-    setLoading(true)
-    e.preventDefault();
-    try {
-      const res = await fetch("/api/hall/new", {
-        method: "POST",
-        body: JSON.stringify({
-          location: Address.loca,
-        }),
-      });
-      if (res.status == 200) {
-        setLoading(false)
-        router.push("/protected/become-host/capacity");
-      }
-    } catch (e) {
-      console.log(error);
-    }
+    // setLoading(true)
+    // e.preventDefault();
+    // try {
+    //   const res = await fetch("/api/hall/new", {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       location: Address.loca,
+    //     }),
+    //   });
+    //   if (res.status == 200) {
+    //     setLoading(false)
+    //     router.push("/protected/become-host/capacity");
+    //   }
+    // } catch (e) {
+    //   console.log(error);
+    // }
   };
 
   return (
