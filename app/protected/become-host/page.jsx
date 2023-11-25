@@ -54,7 +54,7 @@ const page = () => {
       let locID = data._id;
       if (locID) {
         setAddress({ ...Address, locID: locID });
-        router.push(`/protected/become-hostloc=${locID}/places`);
+        router.push(`/protected/become-host/loc=${locID}/places`);
       }
     } catch (e) {
       console.log(e);
