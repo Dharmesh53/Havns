@@ -28,7 +28,7 @@ const locater = ({ Address, setAddress }) => {
           const response = await fetch(url, options);
           const data = await response.text();
           setLoader(false);
-          setAddress({ ...Address, loca: data.display_name});
+          setAddress({ ...Address, loca: data.display_name });
         } catch (error) {
           console.error(error);
         }
@@ -41,9 +41,8 @@ const locater = ({ Address, setAddress }) => {
       <div className="mt-10 relative block rounded-lg location">
         <form action="">
           <span
-            className={`absolute left-0 flex items-center pl-2 text-2xl ${
-              Current ? "top-[1.1rem]" : "inset-y-0"
-            }`}
+            className={`absolute left-0 flex items-center pl-2 text-2xl ${Current ? "top-[1.1rem]" : "inset-y-0"
+              }`}
           >
             <PiMapPinBold />
           </span>
