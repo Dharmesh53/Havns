@@ -3,7 +3,7 @@ import { dynamicBlurDataUrl } from "@utils/dynamicBlurData";
 import Link from "next/link";
 
 const Hallcard = async({ title, photo, location, capacity, price,id }) => {
-  const placer = await dynamicBlurDataUrl(photo);
+  const placer = await dynamicBlurDataUrl(photo)
   return (
     <Link href={`/hall?id=${id}`}>
       <div className="border rounded-xl h-[22rem] hallcard duration-300 ease-out">

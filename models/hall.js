@@ -54,4 +54,4 @@ const hallSchema = new Schema({
 
 const HallModel = models.hall || model("hall",hallSchema);
 
-module.exports = HallModel
+export default HallModel
