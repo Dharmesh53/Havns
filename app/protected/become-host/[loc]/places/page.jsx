@@ -12,24 +12,29 @@ const page = () => {
   const router = useRouter();
   const [Loading, setLoading] = useState();
   const { Address, setAddress } = useContext(locationContext);
-  locationID = pathname.substring(23, 47);
+  let locationID = pathname.substring(23, 47);
+
+
   const postlocation = async (e) => {
-    // setLoading(true)
-    // e.preventDefault();
-    // try {
-    //   const res = await fetch("/api/hall/new", {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       location: Address.loca,
-    //     }),
-    //   });
-    //   if (res.status == 200) {
-    //     setLoading(false)
-    //     router.push("/protected/become-host/capacity");
-    //   }
-    // } catch (e) {
-    //   console.log(error);
-    // }
+    setAddress({ loca: "", locID: locationID });
+    setLoading(true)
+    e.preventDefault();
+    try {
+      console.log(Address);
+      const res = await fetch("/api/hall/new", {
+        method: "POST",
+        body: JSON.stringify({
+          ID: Address.locID,
+          location: Address.loca
+        }),
+      });
+      if (res.status == 200) {
+        setLoading(false)
+        //router.push("/protected/become-host/capacity");
+      }
+    } catch (e) {
+      console.log(error);
+    }
   };
 
   return (
@@ -57,7 +62,8 @@ const page = () => {
       >
         <Footer
           back="/protected/become-host"
-          next="/protected/become-host/capacity"
+          next=""
+          //next={`/protected/become-host/${locationID}/capacity`}
           handle={postlocation}
           value={Loading ? "Working..." : "Next"}
         />

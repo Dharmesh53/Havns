@@ -1,19 +1,15 @@
 "use server";
-import { getServerSession } from "next-auth";
 import connectToDB from "@utils/database";
 import Hall from "@models/hall";
-import { authOptions } from "@app/api/auth/[...nextauth]/route";
+import mongoose from "mongoose";
 
-export const POST = async (req, res) => {
+export const POST = async (req) => {
   try {
     await connectToDB();
-    const session = await getServerSession(authOptions);
-    const { location } = await req.json();
-    const newHall = new Hall({
-      host: session?.user._id,
-      location: location,
-    });
-    await newHall.save();
+    const { location, ID } = await req.json();
+    const docId = mongoose.Types.ObjectId(ID);
+    console.log(typeof(docId))
+    const res = await Hall.findByIdAndUpdate(docId, { location: location });
     return new Response("success", { status: 200 });
   } catch (e) {
     return new Response(e, { status: 500 });

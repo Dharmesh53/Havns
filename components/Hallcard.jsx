@@ -1,3 +1,4 @@
+"use client"
 import ImageBox from "./ImageBox";
 import { dynamicBlurDataUrl } from "@utils/dynamicBlurData";
 import Link from "next/link";

@@ -10,3 +10,5 @@ export const GET = async (req, res) => {
     return new Response({ msg: error }, { status: 500 });
   }
 };
+
+  

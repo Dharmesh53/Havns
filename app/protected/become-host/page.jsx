@@ -41,7 +41,7 @@ const page = () => {
       icon: <BsHeadset />,
     },
   ];
-  
+
   const { Address, setAddress } = useContext(locationContext);
   const router = useRouter();
 

@@ -6,9 +6,9 @@ const Feed = () => {
   const [Halls, setHalls] = useState([]);
 
   useEffect(() => {
-    const fetcher = async () => {
+    const getData = async () => {
       try {
-        const locationsResponse = await fetch("api/hall");
+        const locationsResponse = await fetch(`api/hall`);
         const locationsData = await locationsResponse.json();
 
         const photosPromises = locationsData.map(async (location) => {
@@ -28,7 +28,7 @@ const Feed = () => {
         console.error("Error fetching data:", error);
       }
     };
-    fetcher();
+    getData();
   }, []);
 
   return (
