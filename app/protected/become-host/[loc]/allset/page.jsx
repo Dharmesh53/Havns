@@ -1,30 +1,35 @@
 "use client";
-import Layout from "../layout";
-import Footer from "../footer";
+import Layout from "../../layout";
+import Footer from "../../footer";
 import locationContext from "@context/locateContext";
 import Details from "./details";
 import { updateFeature } from "@actions/createActions";
-import { useRouter } from "next/navigation";
+import { usePathname,useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { motion } from "framer-motion";
 
 const page = () => {
   const router = useRouter();
+  const pathname  = usePathname();
+  const locationID = pathname.substring(23,47);
+
   const [Loading, setLoading] = useState();
   const { Address } = useContext(locationContext);
   const [Feature, setFeature] = useState({
     title: "",
     description: "",
   });
+  
   const handledetails = async (e) => {
     setLoading(true);
     e.preventDefault();
-    const res = await updateFeature({ Feature, Address });
+    const res = await updateFeature({ Feature, locationID });
     if (res) {
       setLoading(false);
-      router.push("/protected/become-host/congrats");
+      router.push(`/protected/become-host/${locationID}/congrats`);
     }
   };
+  
   return (
     <Layout>
       <motion.div

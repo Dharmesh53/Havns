@@ -4,12 +4,14 @@ import Footer from "../../footer";
 import Rates from "./rates";
 import locationContext from "@context/locateContext";
 import { updatePrice } from "@actions/createActions";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { motion } from "framer-motion";
 
 const page = () => {
   const [Loading, setLoading] = useState();
+  const pathname = usePathname();
+  const locationID = pathname.substring(23,47)
 
   const [Data, setData] = useState({
     Veg: null,
@@ -17,18 +19,20 @@ const page = () => {
     Decor: null,
     Room: null,
   });
+
   const { Address } = useContext(locationContext);
   const router = useRouter();
 
   const handleprices = async (e) => {
     setLoading(true);
     e.preventDefault();
-    const res = await updatePrice({ Data, Address });
+    const res = await updatePrice({ Data, locationID });
     if (res) {
       setLoading(false);
-      router.push("/protected/become-host/allset");
+      router.push(`/protected/become-host/${locationID}/allset`);
     }
   };
+
   return (
     <Layout>
       <motion.div

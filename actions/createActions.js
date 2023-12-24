@@ -23,11 +23,12 @@ export async function updateCapacity({
   }
 }
 
-export async function updatePrice({ Data, Address }) {
+export async function updatePrice({ Data, locationID }) {
   try {
+    var doc_id = new mongoose.Types.ObjectId(locationID);
     await connectToDB();
-    const res = await Hall.findOneAndUpdate(
-      { location: Address.loca },
+    await Hall.findOneAndUpdate(
+      { _id: doc_id },
       { veg: Data.Veg, nonveg: Data.Nonveg, decor: Data.Decor, room: Data.Room }
     );
     return { msg: "success" };
@@ -36,11 +37,12 @@ export async function updatePrice({ Data, Address }) {
   }
 }
 
-export async function updateFeature({ Feature, Address }) {
+export async function updateFeature({ Feature, locationID }) {
   try {
+    var doc_id = new mongoose.Types.ObjectId(locationID)
     await connectToDB();
-    const res = await Hall.findOneAndUpdate(
-      { location: Address.loca },
+    await Hall.findOneAndUpdate(
+      { _id: doc_id },
       { title: Feature.title, description: Feature.description, done: true }
     );
     return { msg: "success" };

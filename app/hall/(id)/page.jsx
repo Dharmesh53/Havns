@@ -25,7 +25,7 @@ const Page = async () => {
       const temp = await getData(locationId);
       setData(temp);
     };
-    // fetcher();
+    fetcher();
   }, [locationId]);
   return (
     <div className="flex justify-center flex-col items-center mt-8">

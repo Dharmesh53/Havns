@@ -13,12 +13,12 @@ const facilties = ({ points }) => {
     {
       name: "Seating",
       icon: <MdEventSeat />,
-      data: points.seating ? points.seating + " / hall" : "----",
+      data: points.seating ? points.seating + " per hall" : "----",
     },
     {
       name: "Max-Capacity",
       icon: <BsPeopleFill />,
-      data: points.maxcapacity ? points.maxcapacity + " / hall" : "----",
+      data: points.maxcapacity ? points.maxcapacity + " per hall" : "----",
     },
     {
       name: "Lawns",
