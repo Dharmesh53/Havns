@@ -7,6 +7,7 @@ import cloudinary from "cloudinary";
 import Photo from "@models/photos";
 import Hall from "@models/hall"
 import connectToDB from "@utils/database";
+import mongoose from "mongoose";
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -40,17 +41,17 @@ async function uploadToCloudinary(newFiles) {
 
 export async function uploadPhoto(formdata,location) {
   try {
-    connectToDB()
+    const res = new mongoose.Types.ObjectId(location)
+    await connectToDB()
     const newFiles = await savePhotoToLocal(formdata);
     const photos = await uploadToCloudinary(newFiles);
     newFiles.map((file) => {
       fs.unlink(file.filepath);
     });
-    const res=await Hall.findOne({location:location.loca})
     if(res){
       const newPhotos=photos.map((photo) => {
         const newPhoto=new Photo({
-          location:res._id,
+          location:res,
           public_id: photo.public_id,
           secure_url: photo.secure_url
         })

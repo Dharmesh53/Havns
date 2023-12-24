@@ -1,6 +1,6 @@
 "use client";
-import Layout from "../layout";
-import Footer from "../footer";
+import Layout from "../../layout";
+import Footer from "../../footer";
 import Rates from "./rates";
 import locationContext from "@context/locateContext";
 import { updatePrice } from "@actions/createActions";

@@ -51,7 +51,7 @@ const imageUpload = ({ location }) => {
   return (
     <>
       <form action={handleSubmit} ref={formRef} className="relative">
-        <div className=" flex w-full">
+        <div className=" flex w-full ">
           <input
             type="file"
             accept="image/*"
@@ -60,13 +60,13 @@ const imageUpload = ({ location }) => {
             multiple
             onChange={handleinput}
           />
-        </div>
-        <div className="flex right-0 justify-center absolute top-0">
-          <ButtonSubmit
-            value={Loading ? <Loader /> : "Upload"}
-            className=" cursor-pointer"
-            uploader={handleSubmit}
-          />
+          <div className="flex right-0 justify-center top-0">
+            <ButtonSubmit
+              value={Loading ? <Loader /> : "Upload"}
+              className=" cursor-pointer"
+              uploader={handleSubmit}
+            />
+          </div>
         </div>
       </form>
       <div
