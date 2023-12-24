@@ -4,15 +4,18 @@ import Footer from "../../footer";
 import Counts from "./counts";
 import Layout from "../../layout";
 import useCountsState from "@hooks/useCountsState";
-import { useContext,useState } from "react";
+import { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { updateCapacity } from "@actions/createActions";
+import { usePathname } from "next/navigation";
 
 const page = () => {
   const { Address } = useContext(locationContext);
   const [Loading, setLoading] = useState();
   const router = useRouter();
+  const pathname = usePathname();
+
   const {
     Halls,
     setHalls,
@@ -23,6 +26,7 @@ const page = () => {
     Seating,
     setSeating,
   } = useCountsState();
+
   const data = [
     {
       name: "Halls",
@@ -45,13 +49,15 @@ const page = () => {
       setState: setLawns,
     },
   ];
+
   const postabout = async (e) => {
     setLoading(true);
+    let locationID = pathname.substring(23, 47);
 
     e.preventDefault();
     try {
       const res = await updateCapacity({
-        location: Address.loca,
+        ID: locationID,
         halls: Halls.num,
         seating: Seating.num,
         maxcapacity: Maxcapacity.num,
@@ -59,12 +65,13 @@ const page = () => {
       });
       if (res.msg == "success") {
         setLoading(false);
-        router.push("/protected/become-host/photos");
+        router.push(`/protected/become-host/${locationID}/photos`);
       }
     } catch (e) {
       console.log(e);
     }
   };
+
   return (
     <Layout>
       <motion.div
@@ -98,7 +105,7 @@ const page = () => {
       <div className=" fixed w-screen bottom-0 ">
         <Footer
           back="/protected/become-host/places"
-          next="/protected/become-host/photos"
+          next=""
           value={Loading ? "Working..." : "Next"}
           handle={postabout}
         />

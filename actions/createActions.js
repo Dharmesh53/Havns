@@ -1,9 +1,10 @@
 "use server";
 import connectToDB from "@utils/database";
 import Hall from "@models/hall";
+import mongoose from "mongoose";
 
 export async function updateCapacity({
-  location,
+  ID,
   halls,
   seating,
   maxcapacity,
@@ -11,8 +12,9 @@ export async function updateCapacity({
 }) {
   try {
     await connectToDB();
-    const res = await Hall.findOneAndUpdate(
-      { location: location },
+    var docId = new mongoose.Types.ObjectId(ID);
+    await Hall.findOneAndUpdate(
+      { _id: docId },
       { halls: halls, seating: seating, maxcapacity: maxcapacity, lawns: lawns }
     );
     return { msg: "success" };
@@ -39,7 +41,7 @@ export async function updateFeature({ Feature, Address }) {
     await connectToDB();
     const res = await Hall.findOneAndUpdate(
       { location: Address.loca },
-      { title: Feature.title, description: Feature.description,done:true }
+      { title: Feature.title, description: Feature.description, done: true }
     );
     return { msg: "success" };
   } catch (error) {
