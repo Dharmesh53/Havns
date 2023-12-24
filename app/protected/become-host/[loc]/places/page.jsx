@@ -20,7 +20,6 @@ const page = () => {
     setLoading(true)
     e.preventDefault();
     try {
-      console.log(Address);
       const res = await fetch("/api/hall/new", {
         method: "POST",
         body: JSON.stringify({
@@ -30,7 +29,7 @@ const page = () => {
       });
       if (res.status == 200) {
         setLoading(false)
-        //router.push("/protected/become-host/capacity");
+        router.push(`/protected/become-host/${locationID}/capacity`);
       }
     } catch (e) {
       console.log(error);
@@ -63,7 +62,6 @@ const page = () => {
         <Footer
           back="/protected/become-host"
           next=""
-          //next={`/protected/become-host/${locationID}/capacity`}
           handle={postlocation}
           value={Loading ? "Working..." : "Next"}
         />

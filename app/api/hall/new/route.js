@@ -7,8 +7,7 @@ export const POST = async (req) => {
   try {
     await connectToDB();
     const { location, ID } = await req.json();
-    const docId = mongoose.Types.ObjectId(ID);
-    console.log(typeof(docId))
+    const docId = new mongoose.Types.ObjectId(ID);
     const res = await Hall.findByIdAndUpdate(docId, { location: location });
     return new Response("success", { status: 200 });
   } catch (e) {

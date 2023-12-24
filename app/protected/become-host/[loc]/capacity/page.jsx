@@ -1,8 +1,8 @@
 "use client";
 import locationContext from "@context/locateContext";
-import Footer from "../footer";
+import Footer from "../../footer";
 import Counts from "./counts";
-import Layout from "../layout";
+import Layout from "../../layout";
 import useCountsState from "@hooks/useCountsState";
 import { useContext,useState } from "react";
 import { motion } from "framer-motion";
