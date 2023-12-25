@@ -48,7 +48,7 @@ const Page = async () => {
           <section>
             {!data.location && ""}
             {data.location && (
-              <Map location={data.location ? data.location : "Kota India"} />
+              <Map location={data.location ? data.location : "Kota, India"} />
             )}
           </section>
           <section>

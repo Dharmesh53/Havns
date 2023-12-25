@@ -27,18 +27,21 @@ const Form = ({ type }) => {
 
   const handleSignUp = async (formData) => {
     try {
-    const name = formData.get("name");
-    const email = formData.get("email");
-    const password = formData.get("password");
+      const name = formData.get("name");
+      const email = formData.get("email");
+      const password = formData.get("password");
       const res = await signUpWithCredentials({ name, email, password });
-      setResult(res?.msg);
-      setLoading(false)
+      if(res.done == 1) {
+        setResult(res?.msg);
+      } else {
+        throw new Error("Something Bad")
+      }
+      setLoading(false);
     } catch (error) {
       setLoading(false);
-      setError("User already exists");
+      setError(error.message);
     }
   };
-
 
   const handleSignIn = async (formData) => {
     const email = formData.get("email");
@@ -60,7 +63,13 @@ const Form = ({ type }) => {
     <>
       <form
         className="flex flex-col gap-4 w-[26rem] form max-[650px]:w-full "
-        action={type === "Sign Up" ? handleSignUp : handleSignIn}
+        onSubmit={(event) => {
+          event.preventDefault();
+          type === "Sign Up"
+            ? handleSignUp(new FormData(event.target))
+            : handleSignIn(new FormData(event.target));
+        }}
+        // action={type === "Sign Up" ? handleSignUp : handleSignIn}
       >
         <span>
           <button
@@ -137,7 +146,7 @@ const Form = ({ type }) => {
         <button
           type={type}
           className="flex  justify-center rounded-full p-3 gap-3 text-white border font-semibold outline-none bg-red-500   active:scale-95 duration-200 "
-          onClick={()=>setLoading(true)}
+          onClick={() => setLoading(true)}
         >
           {type}
           {Loading && <Loader />}

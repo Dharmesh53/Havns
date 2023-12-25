@@ -84,12 +84,20 @@ const Nav = () => {
               {session?.user ? (
                 <>
                   <Dropdownitem
-                    icon={<BiMessageRounded />}
+                    icon={<BiUser />}
                     onClick={() => {
-                      router.push("/protected/messages");
+                      router.push("/protected/account");
                       setDropdown(false);
                     }}
-                    option="Messages"
+                    option="Dashboard"
+                  />
+                  <Dropdownitem
+                    icon={<BiMessageRounded />}
+                    onClick={() => {
+                      router.push("/protected/notify");
+                      setDropdown(false);
+                    }}
+                    option="Notifications"
                   />
                   <Dropdownitem
                     icon={<AiOutlineHeart />}
@@ -98,14 +106,6 @@ const Nav = () => {
                       setDropdown(false);
                     }}
                     option="Wishlists"
-                  />
-                  <Dropdownitem
-                    icon={<BiUser />}
-                    onClick={() => {
-                      router.push("/protected/account");
-                      setDropdown(false);
-                    }}
-                    option="Account"
                   />
                   <Dropdownitem
                     icon={<IoMdLogOut />}

@@ -21,22 +21,20 @@ const Tour = () => {
       </div>
       <AnimatePresence>
         {showDetails && (
-          <>
-            <motion.div
-              initial={{ opacity: 0, y: -60 }}
-              animate={{ opacity: 1, y: 10 }}
-              exit={{ opacity: 0, y: -60 }}
-              className="border-2 rounded-xl  p-4"
-            >
-              <form action="submit" className="flex justify-between ">
-                <div className="flex gap-5">
-                  <input type="date" name="date" />
-                  <input type="time" name="time" />
-                </div>
-                <button type="submit">Submit</button>
-               </form>
-            </motion.div>
-          </>
+          <motion.div
+            initial={{ opacity: 0, y: -60 }}
+            animate={{ opacity: 1, y: 10 }}
+            exit={{ opacity: 0, y: -60 }}
+            className="border-2 rounded-xl  p-4"
+          >
+            <form action="submit" className="flex justify-between ">
+              <div className="flex gap-5">
+                <input type="date" name="date" />
+                <input type="time" name="time" />
+              </div>
+              <button type="submit">Submit</button>
+            </form>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>

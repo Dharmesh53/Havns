@@ -9,7 +9,9 @@ export async function signUpWithCredentials(data) {
   const BASE_URL = process.env.NEXTAUTH_URL;
   try {
     const user = await User.findOne({ email: data.email });
-    if (user) throw new Error("User already exists");
+    if (user) {
+      throw new Error("User already exists");
+    }
 
     data.password = await bcrypt.hash(data.password, 12);
 
@@ -23,7 +25,8 @@ export async function signUpWithCredentials(data) {
 
     return { msg: "Check MailBox, Verify Your Email" };
   } catch (e) {
-    redirect(`/errors?error=${e.message}`);
+    console.error("Error in signUpWithCredentials:", e);
+    return { msg: e.message };
   }
 }
 
@@ -32,13 +35,16 @@ export async function verifyWithCredentials(token) {
     const { user } = verifyToken(token);
 
     const userExist = await User.findOne({ email: user.email });
-    if (userExist) return { msg: "verification successful" };
+    if (userExist) {
+      return { msg: "Verification successful" };
+    }
 
     const newUser = new User(user);
     await newUser.save();
 
-    return { msg: "Your account is sucessfully verified !!" };
+    return { msg: "Your account is successfully verified !!" };
   } catch (e) {
-    redirect(`/errors?error=${e.message}`);
+    console.error("Error in verifyWithCredentials:", e);
+    return { msg: e.message };
   }
 }

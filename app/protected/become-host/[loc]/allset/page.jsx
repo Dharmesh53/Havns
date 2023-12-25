@@ -7,6 +7,7 @@ import { updateFeature } from "@actions/createActions";
 import { usePathname,useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { motion } from "framer-motion";
+import { updateUserRole } from "@actions/userActions";
 
 const page = () => {
   const router = useRouter();
@@ -23,8 +24,9 @@ const page = () => {
   const handledetails = async (e) => {
     setLoading(true);
     e.preventDefault();
-    const res = await updateFeature({ Feature, locationID });
-    if (res) {
+    const res1 = await updateFeature({ Feature, locationID });
+    const res2 = await updateUserRole();
+    if (res1.msg == "success" && res2.msg == "success") {
       setLoading(false);
       router.push(`/protected/become-host/${locationID}/congrats`);
     }
