@@ -49,6 +49,7 @@ const hallSchema = new Schema({
   },
   done: {
     type: Boolean,
+    default:false
   },
 });
 

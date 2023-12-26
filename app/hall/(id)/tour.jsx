@@ -1,10 +1,18 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Tour = () => {
   const [showDetails, setShowDetails] = useState(false);
+  const dateRef = useRef(null);
+  const timeRef = useRef(null);
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(dateRef.current.value);
+    console.log(timeRef.current.value);
+    
+  };
   return (
     <div className="flex flex-col gap-1">
       <div className="flex justify-between rounded-xl p-4 bg-black virtual_box items-center align-middle">
@@ -27,10 +35,10 @@ const Tour = () => {
             exit={{ opacity: 0, y: -60 }}
             className="border-2 rounded-xl  p-4"
           >
-            <form action="submit" className="flex justify-between ">
+            <form onSubmit={handleSubmit} className="flex justify-between ">
               <div className="flex gap-5">
-                <input type="date" name="date" />
-                <input type="time" name="time" />
+                <input type="date" ref={dateRef}/>
+                <input type="time" ref={timeRef}/>
               </div>
               <button type="submit">Submit</button>
             </form>

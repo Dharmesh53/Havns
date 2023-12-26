@@ -5,10 +5,10 @@ export default async function leaflet(Coordinates) {
   if (container != null) {
     container._leaflet_id = null;
   }
-
   const { lat, lng } = Coordinates;
   if (lat && lng) {
     const key = "gSuDqf4NmysTCNMxY0xv";
+
     var map = L.map("map", {
       scrollWheelZoom: false,
       dragging: true,

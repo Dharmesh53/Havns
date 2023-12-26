@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 import getMap from "./leaflet";
 
 export default function Map({ location }) {
-  const [Cord, setCord] = useState({ lat: 0.000, lng: 0.000});
+  const [Cord, setCord] = useState({ lat: 0.0, lng: 0.0 });
 
   useEffect(() => {
     const fetcher = async () => {
@@ -16,9 +16,10 @@ export default function Map({ location }) {
   useEffect(() => {
     getMap(Cord);
   }, [Cord]);
+  const key = "a4ad05967c45c6052bb03466a45907a6";
 
   const coordinates = async () => {
-    const url = `https://geocode.maps.co/search?q=${location}`;
+    const url = `http://api.positionstack.com/v1/forward?access_key=${key}&query=${location}`;
     const options = {
       method: "GET",
     };
@@ -26,8 +27,8 @@ export default function Map({ location }) {
       const response = await fetch(url, options);
       const result = await response.json();
       setCord({
-        lat: result[0].lat,
-        lng: result[0].lon
+        lat: result.data[0].latitude,
+        lng: result.data[0].longitude,
       });
     } catch (error) {
       console.error(error);

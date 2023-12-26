@@ -4,7 +4,6 @@ import { getHost } from "./hostData";
 
 const host = async (data) => {
   const [Info, setInfo] = useState({});
-
   useEffect(() => {
     const fetcher = async () => {
       const temp = await getHost(data);
@@ -12,7 +11,9 @@ const host = async (data) => {
     };
     fetcher();
   }, [data]);
+
   let date = Info?.createdAt && formatDistance(new Date(Info?.createdAt), new Date());
+
   return (
     <div className="border-2 rounded-xl ">
       <div className="flex p-2 gap-4 ">

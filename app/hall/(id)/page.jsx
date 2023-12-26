@@ -46,10 +46,10 @@ const Page = async () => {
             <Description info={data} />
           </section>
           <section>
-            {!data.location && ""}
+            {/* {!data.location && ""}
             {data.location && (
               <Map location={data.location ? data.location : "Kota, India"} />
-            )}
+            )} */}
           </section>
           <section>
             {/* <WriteReview Id = {locationId} /> */}

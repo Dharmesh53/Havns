@@ -42,12 +42,21 @@ const Nav = () => {
           </button>
         </div>
         <div className="flex items-center gap-2">
-          <Link href="/protected/become-host">
-            <button className="text-md font-medium host rounded-full p-3 border border-gray-300 hover:bg-gray-100 ease-out duration-300 max-[426px]:p-2">
-              Become a host
-              <span>Now</span>
-            </button>
-          </Link>
+          {session?.user && session.user.role == "host" ? (
+            <Link href={"/dashboard"}>
+              <div className="text-md font-medium rounded-full p-3 flex justify-center items-center gap-[0.5rem] border border-gray-300 hover:bg-gray-100 ease-out duration-300 max-[426px]:p-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                Host Mode
+              </div>
+            </Link>
+          ) : (
+            <Link href="/protected/become-host">
+              <button className="text-md font-medium host rounded-full p-3 border border-gray-300 hover:bg-gray-100 ease-out duration-300 max-[426px]:p-2">
+                Become a host
+                <span>Now</span>
+              </button>
+            </Link>
+          )}
           <button
             className={`border border-gray-300 rounded-full overflow-hidden w-[2.8rem] h-[2.8rem] ${
               session?.user ? "p-0" : "p-[0.8rem]"
@@ -59,7 +68,7 @@ const Nav = () => {
                 session?.user.image ? (
                   <img
                     src={session?.user.image}
-                    alt="User Avatar"
+                    alt="A"
                     className="rounded-full"
                   />
                 ) : (
@@ -89,7 +98,7 @@ const Nav = () => {
                       router.push("/protected/account");
                       setDropdown(false);
                     }}
-                    option="Dashboard"
+                    option="Account"
                   />
                   <Dropdownitem
                     icon={<BiMessageRounded />}
