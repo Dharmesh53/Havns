@@ -9,11 +9,19 @@ const meetingSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "user",
   },
+  meetDate: {
+    type: String,
+  },
+  meetTime: {
+    type: String,
+  },
   status: {
     type: String,
+    enum: ["accepted", "declined", "pending"],
+    default: "pending",
   },
 });
 
-const meetingModel = models.meeting || model("meeting", meetingSchema);
+const meetingModel = models.Meeting || model("Meeting", meetingSchema);
 
 export default meetingModel;

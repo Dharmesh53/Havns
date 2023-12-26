@@ -2,16 +2,21 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Tour = () => {
+const Tour = ({ host }) => {
   const [showDetails, setShowDetails] = useState(false);
   const dateRef = useRef(null);
   const timeRef = useRef(null);
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(dateRef.current.value);
-    console.log(timeRef.current.value);
-    
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const date = dateRef.current.value;
+    const time = timeRef.current.value;
+    console.log(typeof(time))
+    await fetch("/api/meeting/new", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ date, time, host }),
+    });
   };
   return (
     <div className="flex flex-col gap-1">
@@ -37,8 +42,8 @@ const Tour = () => {
           >
             <form onSubmit={handleSubmit} className="flex justify-between ">
               <div className="flex gap-5">
-                <input type="date" ref={dateRef}/>
-                <input type="time" ref={timeRef}/>
+                <input type="date" ref={dateRef} />
+                <input type="time" ref={timeRef} />
               </div>
               <button type="submit">Submit</button>
             </form>

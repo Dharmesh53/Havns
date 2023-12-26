@@ -22,7 +22,7 @@ const description = ({ info }) => {
           heading={"Meet your Host "}
           component={<Host data={info.host} />}
         />
-        <Part heading={"Arrange a Virtual Tour"} component={<Tour />} />
+        <Part heading={"Arrange a Virtual Tour"} component={<Tour host={info.host}/>} />
       </div>
 
       <div className="w-[25%]">

@@ -39,8 +39,8 @@ const Page = async () => {
               </span>
               <h2 className="font-medium underline ">{data.title}</h2>
             </div>
-            {!data.photos && <ImgSkeleton />}
-            {data.photos && <Images value={data.photos} />}
+            {/* {!data.photos && <ImgSkeleton />}
+            {data.photos && <Images value={data.photos} />} */}
           </section>
           <section>
             <Description info={data} />
