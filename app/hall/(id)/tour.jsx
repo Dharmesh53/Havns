@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Tour = ({ host }) => {
+const Tour = ({ host , hall }) => {
   const [showDetails, setShowDetails] = useState(false);
   const dateRef = useRef(null);
   const timeRef = useRef(null);
@@ -15,7 +15,7 @@ const Tour = ({ host }) => {
     await fetch("/api/meeting/new", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ date, time, host }),
+      body: JSON.stringify({ date, time, host, hall }),
     });
   };
   return (

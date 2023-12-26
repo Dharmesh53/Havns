@@ -7,3 +7,5 @@ export default function Home() {
     </main>
   );
 }
+
+//TODO: change the default value in creating hall

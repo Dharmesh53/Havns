@@ -43,8 +43,8 @@ const Nav = () => {
         </div>
         <div className="flex items-center gap-2">
           {session?.user && session.user.role == "host" ? (
-            <Link href={"/dashboard"}>
-              <div className="text-md font-medium rounded-full p-3 flex justify-center items-center gap-[0.5rem] border border-gray-300 hover:bg-gray-100 ease-out duration-300 max-[426px]:p-2">
+            <Link href={"/dashboard/booking"}>
+              <div className="text-md font-medium rounded-full p-3 flex justify-center items-center gap-[0.5rem] hover:bg-gray-100 ease-out duration-300 max-[426px]:p-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                 Host Mode
               </div>

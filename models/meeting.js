@@ -9,6 +9,10 @@ const meetingSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "user",
   },
+  hall:{
+    type:Schema.Types.ObjectId,
+    ref:"hall"
+  },
   meetDate: {
     type: String,
   },
@@ -22,6 +26,6 @@ const meetingSchema = new Schema({
   },
 });
 
-const meetingModel = models.Meeting || model("Meeting", meetingSchema);
+const meetingModel = models.meeting || model("meeting", meetingSchema);
 
 export default meetingModel;
