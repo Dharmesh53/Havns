@@ -9,3 +9,5 @@ export default function Home() {
 }
 
 //TODO: change the default value in creating hall
+//TODO: remove personal id from zoom generate people id's
+//TODO: change home change loading load text first then load images smoothly

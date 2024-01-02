@@ -9,9 +9,9 @@ const meetingSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "user",
   },
-  hall:{
-    type:Schema.Types.ObjectId,
-    ref:"hall"
+  hall: {
+    type: Schema.Types.ObjectId,
+    ref: "hall",
   },
   meetDate: {
     type: String,
@@ -23,6 +23,9 @@ const meetingSchema = new Schema({
     type: String,
     enum: ["accepted", "declined", "pending"],
     default: "pending",
+  },
+  meeting: {
+    type: Object,
   },
 });
 
