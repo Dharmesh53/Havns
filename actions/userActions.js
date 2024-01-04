@@ -14,3 +14,16 @@ export async function updateUserRole() {
     return { msg: "error" };
   }
 }
+export async function updateUser(Name, Email, Link) {
+  try {
+    await connectToDB();
+    const session = await getServerSession(authOptions);
+    await User.findByIdAndUpdate(
+      { _id: session?.user._id },
+      { image: Link, name: Name, email: Email }
+    );
+    return { msg: "success" };
+  } catch (error) {
+    return { msg: "error" };
+  }
+}

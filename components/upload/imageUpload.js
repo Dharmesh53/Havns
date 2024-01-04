@@ -31,7 +31,7 @@ const imageUpload = ({ location }) => {
 
   const handleupload = async ({ location }) => {
     if (files.length < 5)
-      return setResult({ error: "At least 3 images are required !!" });
+      return setResult({ error: "At least 5 images are required !!" });
     setLoading(true);
     const formData = new FormData();
     files.forEach((file) => formData.append("files", file));

@@ -32,7 +32,7 @@ const meetingreq = () => {
           method: "GET",
         });
         const token = await res1.json();
-        const res2 = await fetch(`/api/zoom/meeting`, {
+        await fetch(`/api/zoom/meeting`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -48,11 +48,11 @@ const meetingreq = () => {
           }),
         });
       }
-      // await fetch("/api/meeting/updateStatus", {
-      //   method: "PUT",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ answer: decision, id: meet._id }),
-      // });
+      await fetch("/api/meeting/updateStatus", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ answer: decision, id: meet._id }),
+      });
     } catch (error) {
       console.log(error);
     }

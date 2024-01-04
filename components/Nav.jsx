@@ -1,7 +1,7 @@
 "use client";
-import Link from "next/link";
 //prettier-ignore
 import { BiUser,BiSearch,BiUserPlus,BiLogInCircle,BiHelpCircle,BiMessageRounded,} from "react-icons/bi";
+import Link from "next/link";
 import { AiOutlineHeart } from "react-icons/ai";
 import { IoMdLogOut } from "react-icons/io";
 import { motion, AnimatePresence } from "framer-motion";
@@ -95,10 +95,10 @@ const Nav = () => {
                   <Dropdownitem
                     icon={<BiUser />}
                     onClick={() => {
-                      router.push("/protected/account");
+                      router.push("/protected/controlpanel/booked");
                       setDropdown(false);
                     }}
-                    option="Account"
+                    option="Control Panel"
                   />
                   <Dropdownitem
                     icon={<BiMessageRounded />}

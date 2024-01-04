@@ -3,14 +3,13 @@ import { getServerSession } from "next-auth";
 import connectToDB from "@utils/database";
 import Meeting from "@models/meeting";
 import { authOptions } from "@app/api/auth/[...nextauth]/route";
-import mongoose from "mongoose";
 
-export const GET = async (res, { params }) => {
+//fetch meeting for user with all halls id
+export const GET = async (res, req) => {
   try {
     await connectToDB();
-    const hallId = new mongoose.Types.ObjectId(params.id);
     const session = await getServerSession(authOptions);
-    const resp = await Meeting.find({ host: session?.user._id, hall: hallId });
+    const resp = await Meeting.find({ user: session?.user._id });
     return new Response(JSON.stringify(resp), { status: 200 });
   } catch (error) {
     return new Response(error, { status: 500 });
