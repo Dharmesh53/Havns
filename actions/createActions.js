@@ -39,7 +39,7 @@ export async function updatePrice({ Data, locationID }) {
 
 export async function updateFeature({ Feature, locationID }) {
   try {
-    var doc_id = new mongoose.Types.ObjectId(locationID)
+    var doc_id = new mongoose.Types.ObjectId(locationID);
     await connectToDB();
     await Hall.findOneAndUpdate(
       { _id: doc_id },
@@ -47,6 +47,31 @@ export async function updateFeature({ Feature, locationID }) {
     );
     return { msg: "success" };
   } catch (error) {
+    return { msg: "error" };
+  }
+}
+
+export async function updateHall(data) {
+  try {
+    await connectToDB();
+    await Hall.findOneAndUpdate(
+      { _id: data._id },
+      {
+        title: data.title,
+        description: data.description,
+        location: data.location,
+        room: Number(data.room),
+        veg: Number(data.veg),
+        nonveg: Number(data.nonveg),
+        decor: Number(data.decor),
+        halls: Number(data.halls),
+        maxcapacity: Number(data.maxcapacity),
+        lawns: Number(data.lawns),
+        seating: Number(data.seating),
+      }
+    );
+    return { msg: "success" };
+  } catch (e) {
     return { msg: "error" };
   }
 }

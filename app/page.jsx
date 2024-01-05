@@ -12,3 +12,4 @@ export default function Home() {
 //TODO: remove personal id from zoom generate people id's
 //TODO: change home change loading load text first then load images smoothly
 //TODO: add crop feature in profile pic
+//TODO: fix the bug, host should not be able to see other host's dashboard
