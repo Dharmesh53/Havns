@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { updateHall } from "@actions/createActions";
+import PhotoUpdater from "./photoUpdater";
 
 const Editor = () => {
   const path = usePathname();
@@ -40,6 +41,7 @@ const Editor = () => {
 
   return (
     <div className="flex flex-col justify-center">
+      <PhotoUpdater id={hallId} deleteButton={isEditing} />
       {Object.entries(data).map(
         ([key, value]) =>
           key !== "_id" &&

@@ -48,6 +48,7 @@ const imageUpload = ({ location }) => {
     e.preventDefault();
     handleupload({ location });
   };
+
   return (
     <>
       <form action={handleSubmit} ref={formRef} className="relative">
@@ -83,6 +84,7 @@ const imageUpload = ({ location }) => {
                 key={idx}
                 url={URL.createObjectURL(item)}
                 deleter={() => handledelete(idx)}
+                edit={true}
               />
             ))}
           </div>

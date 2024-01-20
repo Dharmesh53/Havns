@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { MdDeleteOutline } from "react-icons/md";
 
-const photocard = ({ url, deleter }) => {
+const photocard = ({ url, deleter, edit }) => {
   return (
     <div className="relative rounded-xl photocard p-3">
       <div style={{ width: "200px", height: "200px" }}>
@@ -13,13 +13,15 @@ const photocard = ({ url, deleter }) => {
           className="rounded-xl"
         />
       </div>
-      <button
-        type="button"
-        onClick={deleter}
-        className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1"
-      >
-        <MdDeleteOutline size={18} />
-      </button>
+      {edit && (
+        <button
+          type="button"
+          onClick={deleter}
+          className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1"
+        >
+          <MdDeleteOutline size={18} />
+        </button>
+      )}
     </div>
   );
 };
