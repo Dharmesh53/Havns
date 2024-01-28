@@ -86,6 +86,7 @@ export async function getAllPhotos() {
 export async function deletePhoto(public_id) {
   try {
     await cloudinary.v2.uploader.destroy(public_id);
+    await Photo.deleteMany({ public_id: public_id });
     return { msg: "success" };
   } catch (error) {
     return { msg: error.message };
