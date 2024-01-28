@@ -11,9 +11,9 @@ export const GET = async (req, { params }) => {
     if (res.host == session?.user._id) {
       return new Response(JSON.stringify(res), { status: 200 });
     } else {
-      return new Response("sneaky", { status: 404 });
+      return new Response(JSON.stringify(res), { status: 404 });
     }
   } catch (error) {
-    return new Response({ msg: error }, { status: 500 });
+    return new Response(error, { status: 500 });
   }
 };

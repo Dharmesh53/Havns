@@ -19,7 +19,9 @@ const Map = dynamic(() => import("@components/map/map"), {
 const Page = async () => {
   const [data, setData] = useState({});
   const searchParams = useSearchParams();
+
   const locationId = searchParams.get("id");
+
   useEffect(() => {
     const fetcher = async () => {
       const temp = await getData(locationId);
@@ -27,37 +29,46 @@ const Page = async () => {
     };
     fetcher();
   }, [locationId]);
+
   return (
     <div className="flex justify-center flex-col items-center mt-8">
       <div className="flex justify-center w-[79vw]">
         <div className="flex flex-col gap-10">
-          <section>
-            <div className="my-5">
-              <span className="font-bold flex items-center gap-2 text-xl">
-                <PiMapPinBold />
-                {data.location ? data.location : "loading...."}
-              </span>
-              <h2 className="font-medium underline ">{data.title}</h2>
-            </div>
-            {/* {!data.photos && <ImgSkeleton />}
+          {data && data.location && data.title ? (
+            <div>
+              <section>
+                <div className="my-5">
+                  <span className="font-bold flex items-center gap-2 text-xl">
+                    <PiMapPinBold />
+                    {data.location}
+                  </span>
+                  <h2 className="font-medium underline ">{data.title}</h2>
+                </div>
+                {/* {!data.photos && <ImgSkeleton />}
             {data.photos && <Images value={data.photos} />} */}
-          </section>
-          <section>
-            <Description info={data} />
-          </section>
-          <section>
-            {/* {!data.location && ""}
+              </section>
+              <section>
+                <Description info={data} />
+              </section>
+              <section>
+                {/* {!data.location && ""}
             {data.location && (
-              <Map location={data.location ? data.location : "Kota, India"} />
+              <Map location={data.location} />
             )} */}
-          </section>
-          <section>
-            {/* <WriteReview Id = {locationId} /> */}
-            <Reviews />
-          </section>
+              </section>
+              <section>
+                {/* <WriteReview Id = {locationId} /> */}
+                <Reviews />
+              </section>
+            </div>
+          ) : (
+            <div className="flex justify-center items-center mt-8">
+              <p>Loading...</p>
+            </div>
+          )}
         </div>
       </div>
-        <Footer />
+      <Footer />
     </div>
   );
 };

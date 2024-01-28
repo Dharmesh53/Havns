@@ -61,7 +61,7 @@ const Editor = () => {
                 disabled={!isEditing}
               />
             </div>
-          )
+          ),
       )}
       {isEditing ? (
         <button onClick={handleSaveClick}>Save</button>
