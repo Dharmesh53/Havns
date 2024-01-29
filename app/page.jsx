@@ -14,3 +14,4 @@ export default function Home() {
 //TODO: add crop feature in profile pic
 //TODO: fix the bug, host should not be able to see other host's dashboard
 //TODO: fetch main feed in server (useswr)
+//TODO: have a look on lisiting and hall main page in host mode

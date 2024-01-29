@@ -35,7 +35,7 @@ const Page = async () => {
       <div className="flex justify-center w-[79vw]">
         <div className="flex flex-col gap-10">
           {data && data.location && data.title ? (
-            <div>
+            <>
               <section>
                 <div className="my-5">
                   <span className="font-bold flex items-center gap-2 text-xl">
@@ -45,22 +45,20 @@ const Page = async () => {
                   <h2 className="font-medium underline ">{data.title}</h2>
                 </div>
                 {/* {!data.photos && <ImgSkeleton />}
-            {data.photos && <Images value={data.photos} />} */}
+                {data.photos && <Images value={data.photos} />} */}
               </section>
               <section>
                 <Description info={data} />
               </section>
               <section>
                 {/* {!data.location && ""}
-            {data.location && (
-              <Map location={data.location} />
-            )} */}
+                {data.location && <Map location={data.location} />} */}
               </section>
               <section>
                 {/* <WriteReview Id = {locationId} /> */}
                 <Reviews />
               </section>
-            </div>
+            </>
           ) : (
             <div className="flex justify-center items-center mt-8">
               <p>Loading...</p>
