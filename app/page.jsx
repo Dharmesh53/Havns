@@ -15,3 +15,4 @@ export default function Home() {
 //TODO: fix the bug, host should not be able to see other host's dashboard
 //TODO: fetch main feed in server (useswr)
 //TODO: have a look on lisiting and hall main page in host mode
+//TODO: change havns service fees in all halls with 10% of total

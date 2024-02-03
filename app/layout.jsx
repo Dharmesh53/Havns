@@ -2,7 +2,7 @@ import "@styles/globals.css";
 import Navbar from "@components/Nav";
 import { Inter } from "next/font/google";
 import Provider from "@context/Provider";
-import {LocationProvider} from "@context/locateContext";
+import { LocationProvider } from "@context/locateContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {

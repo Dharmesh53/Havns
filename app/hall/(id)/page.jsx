@@ -1,6 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { PiMapPinBold } from "react-icons/pi";
 import Images from "@components/Images";
@@ -16,7 +16,7 @@ const Map = dynamic(() => import("@components/map/map"), {
   ssr: false,
 });
 
-const Page = async () => {
+const Page = () => {
   const [data, setData] = useState({});
   const searchParams = useSearchParams();
 

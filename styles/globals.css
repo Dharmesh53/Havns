@@ -45,8 +45,13 @@ body {
 }
 img {
   -webkit-backface-visibility: hidden;
-  -webkit-transform: translateZ(0); 
+  -webkit-transform: translateZ(0);
   transform: translateZ(0);
+}
+
+.rdrDayNumber span {
+  font-weight: 500;
+  font-size: 13px !important;
 }
 
 .rdrInRange,
@@ -55,7 +60,7 @@ img {
   background-color: #ef4444 !important;
 }
 
-.point:hover .icon{
+.point:hover .icon {
   transform: scale(1.15);
 }
 
@@ -201,13 +206,7 @@ img {
 
 .virtual:before {
   content: "";
-  background: linear-gradient(
-    45deg,
-    #ff0000,
-    #ff7300,
-    #fffb00,
-    #ff0000
-  );
+  background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #ff0000);
   position: absolute;
   top: -2px;
   left: -2px;
@@ -246,7 +245,7 @@ img {
   border-radius: 10px;
 }
 
-.virtual:hover{
+.virtual:hover {
   animation-play-state: paused;
 }
 

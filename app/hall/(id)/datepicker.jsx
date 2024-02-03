@@ -1,27 +1,37 @@
-import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css";
-import { addDays } from "date-fns";
-import { useState } from "react";
+"use client";
 import { DateRange } from "react-date-range";
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { addDays, subDays } from "date-fns";
+import { useState, useMemo } from "react";
 
-const datepicker = () => {
- const [state, setState] = useState([
-   {
-     startDate: addDays(new Date(),0),
-     endDate: addDays(new Date(),7),
-     key: "selection",
-   },
- ]);
-  return (
-    <div>
+const calender = ({ handler }) => {
+  const [state, setState] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
+  const memoizedDateRange = useMemo(
+    () => (
       <DateRange
         editableDateInputs={true}
-        onChange={(item) => setState([item.selection])}
+        onChange={(item) => handleDateChange(item)}
         moveRangeOnFirstSelection={false}
+        minDate={new Date()}
         ranges={state}
       />
-    </div>
+    ),
+    [state]
   );
+
+  const handleDateChange = (item) => {
+    setState([item.selection]);
+    handler(item.selection.startDate, item.selection.endDate);
+  };
+
+  return <div>{memoizedDateRange}</div>;
 };
 
-export default datepicker;
+export default calender;

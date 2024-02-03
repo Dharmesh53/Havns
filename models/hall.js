@@ -1,4 +1,4 @@
-import { Schema,models,model } from "mongoose";
+import { Schema, models, model } from "mongoose";
 
 const hallSchema = new Schema({
   host: {
@@ -49,10 +49,13 @@ const hallSchema = new Schema({
   },
   done: {
     type: Boolean,
-    default:false
+    default: false,
+  },
+  booked: {
+    type: Array,
   },
 });
 
-const HallModel = models.hall || model("hall",hallSchema);
+const HallModel = models.hall || model("hall", hallSchema);
 
-export default HallModel
+export default HallModel;

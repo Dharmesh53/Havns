@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const listing = () => {
   const [data, setData] = useState([]);
@@ -30,6 +31,9 @@ const listing = () => {
           </>
         )}
       </div>
+      <button>
+        <Link href={"/protected/become-host"}>Add New Hall</Link>
+      </button>
     </div>
   );
 };
