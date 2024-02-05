@@ -8,11 +8,37 @@ const prices = ({ rates }) => {
     end: null,
   });
 
+  const [isReserving, setIsReserving] = useState(false);
+
   const changer = (start, end) => {
     setDates({ start, end });
   };
+
   const booker = async () => {
-    console.log(dates);
+    try {
+      setIsReserving(true);
+
+      const options = {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ dates, hallId: rates._id }),
+      };
+      const res = await fetch("/api/hall/dates", options);
+      // if (res.status === 200) {
+      //   alert("Reservation successful!");
+      // } else if (res.status === 500) {
+      //   alert("Server error. Please sign in.");
+      // } else {
+      //   alert(`Unexpected error: ${res.statusText}`);
+      // }
+    } catch (error) {
+      console.error("Error during reservation:", error);
+      alert("An unexpected error occurred.");
+    } finally {
+      setIsReserving(false);
+    }
   };
 
   return (
@@ -62,10 +88,11 @@ const prices = ({ rates }) => {
       </div>
       <span className=" bg-[#ef4444] text-lg p-[0.42rem] text-white font-medium rounded-b-2xl">
         <button
+          disabled={isReserving}
           className="active:text-base w-full duration-150"
           onClick={() => booker()}
         >
-          Reserve Now
+          {isReserving ? "Reserving..." : "Reserve Now"}
         </button>
       </span>
     </div>

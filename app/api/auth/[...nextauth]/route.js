@@ -5,7 +5,7 @@ import connectToDB from "@utils/database";
 import User from "@models/user";
 import bcrypt from "bcrypt";
 
-connectToDB();
+await connectToDB();
 
 export const authOptions = {
   providers: [
@@ -22,9 +22,9 @@ export const authOptions = {
       async authorize(credentials, req) {
         const { email, password } = credentials;
         const user = await User.findOne({ email });
-        if (!user) return ({msg:"User not found"});
+        if (!user) return { msg: "User not found" };
         const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) return ({msg:"Invalid password"});
+        if (!isPasswordValid) return { msg: "Invalid password" };
         return user;
       },
     }),
@@ -51,13 +51,6 @@ export const authOptions = {
     },
   },
 };
-
-
-
-
-
-
-
 
 const handler = NextAuth(authOptions);
 
