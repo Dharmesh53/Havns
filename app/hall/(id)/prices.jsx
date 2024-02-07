@@ -4,8 +4,8 @@ import { useState } from "react";
 
 const prices = ({ rates }) => {
   const [dates, setDates] = useState({
-    start: null,
-    end: null,
+    start: new Date(),
+    end: new Date(),
   });
 
   const [isReserving, setIsReserving] = useState(false);
@@ -84,7 +84,7 @@ const prices = ({ rates }) => {
         </div>
       </div>
       <div className="flex justify-center items-center ">
-        <Calender handler={changer} />
+        <Calender handler={changer} disable={rates.booked} />
       </div>
       <span className=" bg-[#ef4444] text-lg p-[0.42rem] text-white font-medium rounded-b-2xl">
         <button
