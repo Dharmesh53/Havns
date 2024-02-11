@@ -24,8 +24,11 @@ const userSchema = new Schema(
       type: String,
       default: "credentials",
     },
+    booked: {
+      type: Array,
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const UserModel = models.user || model("user", userSchema);

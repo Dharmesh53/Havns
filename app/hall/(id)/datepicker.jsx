@@ -2,7 +2,7 @@
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import { eachDayOfInterval, addDays } from "date-fns";
+import { eachDayOfInterval } from "date-fns";
 import { useState } from "react";
 
 const Calender = ({ handler, disable }) => {
@@ -15,6 +15,12 @@ const Calender = ({ handler, disable }) => {
   ]);
 
   // Function to generate an array of dates within a range
+  const generateDatesArray = (startDate, endDate) => {
+    return eachDayOfInterval({
+      start: new Date(startDate),
+      end: new Date(endDate),
+    });
+  };
 
   // Function to determine if a date is disabled
   const isDateDisabled = () => {
@@ -33,12 +39,6 @@ const Calender = ({ handler, disable }) => {
     //   });
     // }
     // return temp;
-  };
-  const generateDatesArray = (startDate, endDate) => {
-    return eachDayOfInterval({
-      start: new Date(startDate),
-      end: new Date(endDate),
-    });
   };
 
   const handleDateChange = (item) => {

@@ -27,3 +27,16 @@ export async function updateUser(Name, Email, Link) {
     return { msg: "error" };
   }
 }
+
+export async function updateUserBooking(bookingObj) {
+  try {
+    const session = await getServerSession(authOptions);
+    await User.findByIdAndUpdate(
+      { _id: session?.user._id },
+      { $push: { booked: bookingObj } }
+    );
+    return { msg: "success" };
+  } catch (error) {
+    return { msg: "error" };
+  }
+}

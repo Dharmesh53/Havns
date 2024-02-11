@@ -1,14 +1,20 @@
 "use client";
 import Calender from "./datepicker";
 import { useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import { useRouter } from "next/navigation";
 
 const prices = ({ rates }) => {
+  const router = useRouter();
+  const [isReserving, setIsReserving] = useState(false);
   const [dates, setDates] = useState({
     start: new Date(),
     end: new Date(),
   });
 
-  const [isReserving, setIsReserving] = useState(false);
+  const stripePromise = loadStripe(
+    "pk_test_51OhAl8SC96GcZqfUXc4paoG4kzaU7mcQyP8lbNuN0GXxNCkmNmQH9Fa965ot9J9BfWsiK6XEt4RJT2wbBIPvdbom00SAhbKph6"
+  );
 
   const changer = (start, end) => {
     setDates({ start, end });
@@ -17,22 +23,20 @@ const prices = ({ rates }) => {
   const booker = async () => {
     try {
       setIsReserving(true);
-
-      const options = {
+      const res1 = await fetch("/api/stripe/checkout", {
         method: "POST",
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ dates, hallId: rates._id }),
-      };
-      const res = await fetch("/api/hall/dates", options);
-      // if (res.status === 200) {
-      //   alert("Reservation successful!");
-      // } else if (res.status === 500) {
-      //   alert("Server error. Please sign in.");
-      // } else {
-      //   alert(`Unexpected error: ${res.statusText}`);
-      // }
+        body: JSON.stringify({
+          title: rates.title,
+          amount: rates.decor + rates.veg + rates.nonveg + rates.room,
+          Id: rates._id,
+          dates: dates,
+        }),
+      });
+      const result = await res1.json();
+      router.push(result.url);
     } catch (error) {
       console.error("Error during reservation:", error);
       alert("An unexpected error occurred.");
@@ -79,14 +83,19 @@ const prices = ({ rates }) => {
           </span>
         </div>
         <div className=" flex justify-between ">
-          <span className="underline">Havns Service fees</span>
-          <span className="w-[30%]">₹ {rates.decor ? "10,000" : "-----"}</span>
+          <span className="underline">10% Service fees</span>
+          <span className="w-[30%]">
+            ₹{" "}
+            {rates.decor
+              ? (rates.decor + rates.veg + rates.nonveg + rates.room) * 0.1
+              : "-----"}
+          </span>
         </div>
       </div>
       <div className="flex justify-center items-center ">
         <Calender handler={changer} disable={rates.booked} />
       </div>
-      <span className=" bg-[#ef4444] text-lg p-[0.42rem] text-white font-medium rounded-b-2xl">
+      <span className=" bg-[#ef4444] text-lg p-[0.42rem] text-white font-medium rounded-b-xl">
         <button
           disabled={isReserving}
           className="active:text-base w-full duration-150"
