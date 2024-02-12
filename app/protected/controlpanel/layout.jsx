@@ -11,7 +11,7 @@ const layout = ({ children }) => {
           <Link href="/protected/controlpanel/meeting">Virtual meetings</Link>
         </button>
         <button>
-          <Link href="/protected/controlpanel/account">account setting</Link>
+          <Link href="/protected/controlpanel/account">account settings</Link>
         </button>
       </div>
       <div>{children}</div>

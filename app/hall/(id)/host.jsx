@@ -10,9 +10,10 @@ const host = async (data) => {
       setInfo(temp);
     };
     fetcher();
-  }, [data]);
+  }, []);
 
-  let date = Info?.createdAt && formatDistance(new Date(Info?.createdAt), new Date());
+  let date =
+    Info?.createdAt && formatDistance(new Date(Info?.createdAt), new Date());
 
   return (
     <div className="border-2 rounded-xl ">
@@ -30,7 +31,10 @@ const host = async (data) => {
           </div>
           <div className="text-base text-gray-500 flex gap-1">
             <span>{Info?.email} &#183;</span>
-            <span> {date && date.toUpperCase().charAt(0) + (date).slice(1)} of hosting</span>
+            <span>
+              {" "}
+              {date && date.toUpperCase().charAt(0) + date.slice(1)} of hosting
+            </span>
           </div>
         </div>
       </div>
