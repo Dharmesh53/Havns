@@ -27,6 +27,9 @@ const userSchema = new Schema(
     booked: {
       type: Array,
     },
+    liked: {
+      type: Array,
+    },
   },
   { timestamps: true },
 );

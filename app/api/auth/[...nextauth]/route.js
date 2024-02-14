@@ -5,7 +5,7 @@ import connectToDB from "@utils/database";
 import User from "@models/user";
 import bcrypt from "bcrypt";
 
-await connectToDB();
+connectToDB();
 
 export const authOptions = {
   providers: [

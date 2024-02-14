@@ -11,7 +11,7 @@ export async function updateUserRole() {
     if (session) {
       await User.findByIdAndUpdate(
         { _id: session?.user._id },
-        { role: "host" }
+        { role: "host" },
       );
       return { msg: "success" };
     } else {
@@ -28,7 +28,7 @@ export async function updateUser(Name, Email, Link) {
     if (session) {
       await User.findByIdAndUpdate(
         { _id: session?.user._id },
-        { image: Link, name: Name, email: Email }
+        { image: Link, name: Name, email: Email },
       );
       return { msg: "success" };
     } else {
@@ -41,11 +41,12 @@ export async function updateUser(Name, Email, Link) {
 
 export async function updateUserBooking(bookingObj) {
   try {
+    await connectToDB();
     const session = await getServerSession(authOptions);
     if (session) {
       await User.findByIdAndUpdate(
         { _id: session?.user._id },
-        { $push: { booked: bookingObj } }
+        { $push: { booked: bookingObj } },
       );
       return { msg: "success" };
     } else {
@@ -53,5 +54,41 @@ export async function updateUserBooking(bookingObj) {
     }
   } catch (error) {
     return { msg: "error" };
+  }
+}
+
+export async function hallLiker(id) {
+  try {
+    await connectToDB();
+    const session = await getServerSession(authOptions);
+    if (session) {
+      await User.findByIdAndUpdate(
+        { _id: session.user._id },
+        { $push: { liked: id } },
+      );
+      return { msg: "success" };
+    } else {
+      return { msg: "log in" };
+    }
+  } catch (error) {
+    return { msg: "unexpected error" };
+  }
+}
+
+export async function hallDisliker(id) {
+  try {
+    await connectToDB();
+    const session = await getServerSession(authOptions);
+    if (session) {
+      await User.findOneAndUpdate(
+        { _id: session.user._id },
+        { $pull: { liked: id } },
+      );
+      return { msg: "success" };
+    } else {
+      return { msg: "log in" };
+    }
+  } catch (e) {
+    return { msg: "unexpected error" };
   }
 }

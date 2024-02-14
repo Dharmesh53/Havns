@@ -1,9 +1,13 @@
 "use client";
 import HallCard from "./Hallcard";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import Loading from "./Loading";
 
 const Feed = () => {
   const [Halls, setHalls] = useState([]);
+  const { data: session } = useSession();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
@@ -17,37 +21,55 @@ const Feed = () => {
           return photoData;
         });
         const photos = await Promise.all(photosPromises);
+
+        var userData = null;
+        if (session) {
+          const userRes = await fetch(`/api/hosts/${session?.user._id}`);
+          userData = await userRes.json();
+        }
+
         const hallsData = locationsData.map((location, index) => {
           return {
             ...location,
             photos: photos[index],
+            isLiked: userData.liked.includes(location._id),
           };
         });
         setHalls(hallsData);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setLoading(false);
       }
     };
     getData();
-  }, []);
+  }, [session]);
 
   return (
-    <div className="flex justify-center items-center gap-8 p-20 flex-wrap">
-      {Halls.map((item, i) => {
-        if (item.location !== "") {
-          return (
-            <HallCard
-              key={i}
-              id={item._id}
-              photo={item.photos.secure_url}
-              title={item.title}
-              location={item.location}
-              capacity={item.maxcapacity}
-              price={item.veg}
-            />
-          );
-        }
-      })}
+    <div>
+      {loading ? (
+        <div className="h-screen flex justify-center items-center">
+          <Loading />
+        </div>
+      ) : (
+        <div className="flex justify-center items-center gap-8 p-20 flex-wrap">
+          {Halls.map((item, i) => {
+            return (
+              <HallCard
+                key={i}
+                id={item._id}
+                photo={item.photos.secure_url}
+                title={item.title}
+                location={item.location}
+                capacity={item.maxcapacity}
+                price={item.veg}
+                isLiked={item.isLiked}
+                session={session?.user._id ? true : false}
+              />
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

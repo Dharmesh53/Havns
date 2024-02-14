@@ -17,3 +17,4 @@ export default function Home() {
 //TODO: have a look on lisiting and hall main page in host mode
 //TODO: change havns service fees in all halls with 10% of total
 //TODO: move the booking function from prices.jsx to page.jsx
+//TODO: validate the sign in page
