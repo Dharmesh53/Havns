@@ -1,6 +1,6 @@
 "use client";
 //prettier-ignore
-import { BiUser,BiSearch,BiUserPlus,BiLogInCircle,BiHelpCircle,BiMessageRounded,} from "react-icons/bi";
+import { BiUser, BiUserPlus, BiLogInCircle, BiHelpCircle, BiMessageRounded, } from "react-icons/bi";
 import Link from "next/link";
 import { AiOutlineHeart } from "react-icons/ai";
 import { IoMdLogOut } from "react-icons/io";
@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
+import SearchBar from "./search.jsx";
 
 const Nav = () => {
   const router = useRouter();
@@ -32,14 +33,7 @@ const Nav = () => {
           </Link>
         </div>
         <div className="flex relative search_box rounded-full  ">
-          <input
-            type="text"
-            className="search_input max-[768px]:w-full"
-            placeholder="Search Destinations"
-          />
-          <button className="search_btn" onClick={() => {}}>
-            <BiSearch />
-          </button>
+          <SearchBar />
         </div>
         <div className="flex items-center gap-2">
           {session?.user && session.user.role == "host" ? (
@@ -58,9 +52,8 @@ const Nav = () => {
             </Link>
           )}
           <button
-            className={`border border-gray-300 rounded-full overflow-hidden w-[2.8rem] h-[2.8rem] ${
-              session?.user ? "p-0" : "p-[0.8rem]"
-            } user ease-out duration-300 max-[426px]:p-0`}
+            className={`border border-gray-300 rounded-full overflow-hidden w-[2.8rem] h-[2.8rem] ${session?.user ? "p-0" : "p-[0.8rem]"
+              } user ease-out duration-300 max-[426px]:p-0`}
             onClick={() => setDropdown((d) => !d)}
           >
             <span className="inline-block align-middle text-xl w-[2.8rem] h-[2.8rem]">

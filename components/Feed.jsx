@@ -1,13 +1,15 @@
 "use client";
 import HallCard from "./Hallcard";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSession } from "next-auth/react";
 import Loading from "./Loading";
+import { useSearchContext } from "@context/searchContext";
 
 const Feed = () => {
   const [Halls, setHalls] = useState([]);
   const { data: session } = useSession();
   const [loading, setLoading] = useState(true);
+  const { query } = useSearchContext();
 
   useEffect(() => {
     const getData = async () => {
@@ -35,6 +37,7 @@ const Feed = () => {
             isLiked: userData.liked.includes(location._id),
           };
         });
+
         setHalls(hallsData);
         setLoading(false);
       } catch (error) {
@@ -45,6 +48,15 @@ const Feed = () => {
     getData();
   }, [session]);
 
+  const filteredData = useMemo(() => {
+    if (query === "") {
+      return Halls;
+    }
+    return Halls.filter((hall) => {
+      return hall.location.toLowerCase().includes(query.toLowerCase());
+    });
+  }, [query, Halls]);
+
   return (
     <div>
       {loading ? (
@@ -53,7 +65,7 @@ const Feed = () => {
         </div>
       ) : (
         <div className="flex justify-center items-center gap-8 p-20 flex-wrap">
-          {Halls.map((item, i) => {
+          {filteredData.map((item, i) => {
             return (
               <HallCard
                 key={i}
