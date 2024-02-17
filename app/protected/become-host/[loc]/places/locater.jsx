@@ -18,9 +18,10 @@ const locater = ({ Address, setAddress }) => {
 
   const userlocation = async () => {
     setLoader(true);
+    e.preventDefault();
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(async (position) => {
-        const url = `https://geocode.maps.co/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}`;
+        const url = `/api/geocode/?lat=${position.coords.latitude}&lon=${position.coords.longitude}`;
         const options = {
           method: "GET",
         };

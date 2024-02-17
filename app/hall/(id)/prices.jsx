@@ -65,7 +65,9 @@ const prices = ({ rates }) => {
     <div className="rounded-2xl booker border-2 flex flex-col gap-2 ">
       <div className="flex mx-5 items-baseline py-4 gap-1 justify-between">
         <div>
-          <span className="font-bold text-2xl">{stars.stars}</span>
+          <span className="font-bold text-2xl">
+            {stars.stars ? stars.stars : 0}
+          </span>
           <span> &#9733;</span>
         </div>
         <span className="text-slate-500 text-sm w-[32%]">
@@ -102,7 +104,10 @@ const prices = ({ rates }) => {
           <span className="w-[30%]">
             ₹{" "}
             {rates.decor
-              ? (rates.decor + rates.veg + rates.nonveg + rates.room) * 0.1
+              ? (
+                (rates.decor + rates.veg + rates.nonveg + rates.room) *
+                0.1
+              ).toFixed(2)
               : "-----"}
           </span>
         </div>

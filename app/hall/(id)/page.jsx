@@ -44,18 +44,16 @@ const Page = () => {
                   </span>
                   <h2 className="font-medium underline ">{data.title}</h2>
                 </div>
-                {/* {!data.photos && <ImgSkeleton />}
-                {data.photos && <Images value={data.photos} />} */}
+                {/* {!data.photos && <ImgSkeleton /> */}
+                {data.photos && <Images value={data.photos} />}
               </section>
               <section>
                 <Description info={data} />
               </section>
               <section>
-                {/* {!data.location && ""}
-                {data.location && <Map location={data.location} />} */}
+                {data.location && <Map location={data.location} />}
               </section>
               <section>
-                {/* <WriteReview Id = {locationId} /> */}
                 <Reviews Id={data._id} />
               </section>
             </>

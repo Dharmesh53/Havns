@@ -16,17 +16,19 @@ const Reviews = ({ Id }) => {
       <div className="font-bold text-2xl ">Reviews</div>
       <div className="flex flex-wrap">
         <div className="w-1/2 py-4 pr-4 ">
-          {data.map((review) => {
-            return (
-              <ReviewBox
-                name={review.name}
-                stars={review.stars}
-                image={review?.image ? review.image : false}
-                feedback={review.feedback}
-                date={review.createdAt}
-              />
-            );
-          })}
+          {data.length > 0
+            ? data.map((review) => {
+              return (
+                <ReviewBox
+                  name={review.name}
+                  stars={review.stars}
+                  image={review?.image ? review.image : false}
+                  feedback={review.feedback}
+                  date={review.createdAt}
+                />
+              );
+            })
+            : "No Reviews"}
         </div>
       </div>
     </div>

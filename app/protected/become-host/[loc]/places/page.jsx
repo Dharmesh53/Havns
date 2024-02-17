@@ -8,27 +8,26 @@ import { motion } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
 
 const page = () => {
-  const pathname = usePathname()
+  const pathname = usePathname();
   const router = useRouter();
   const [Loading, setLoading] = useState();
   const { Address, setAddress } = useContext(locationContext);
   let locationID = pathname.substring(23, 47);
 
-
   const postlocation = async (e) => {
     setAddress({ loca: "", locID: locationID });
-    setLoading(true)
+    setLoading(true);
     e.preventDefault();
     try {
       const res = await fetch("/api/hall/new", {
         method: "POST",
         body: JSON.stringify({
-          ID: Address.locID,
-          location: Address.loca
+          ID: locationID,
+          location: Address.loca,
         }),
       });
       if (res.status == 200) {
-        setLoading(false)
+        setLoading(false);
         router.push(`/protected/become-host/${locationID}/capacity`);
       }
     } catch (e) {
@@ -45,13 +44,8 @@ const page = () => {
         transition={{ duration: 0.4 }}
         className=" flex flex-col gap-4"
       >
-        <h1 className="text-4xl font-semibold">
-          Where's your place located?
-        </h1>
-        <p className="text-gray-600">
-          Your address is only shared with guests after they’ve made a
-          reservation.
-        </p>
+        <h1 className="text-4xl font-semibold">Where's your place located?</h1>
+        <p className="text-gray-600">Tell us where your havns is located ?</p>
         <Locater Address={Address} setAddress={setAddress} />
       </motion.div>
       <motion.div

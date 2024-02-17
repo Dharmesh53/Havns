@@ -7,7 +7,7 @@ export const GET = async (req, res) => {
   try {
     await connectToDB();
     const session = await getServerSession(authOptions);
-    const res = await Hall.find({ host: session.user._id });
+    const res = await Hall.find({ host: session.user._id, done: true });
     return new Response(JSON.stringify(res), { status: 200 });
   } catch (error) {
     return new Response({ msg: error.message }, { status: 500 });

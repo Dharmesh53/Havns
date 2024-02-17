@@ -18,17 +18,18 @@ const halls = () => {
     <div>
       <div className="flex flex-col gap-5 justify-center text-lg">
         <div>You are hosting these halls</div>
-        <div className="flex flex-row">
-          {HostHalls.length > 0 && (
-            <>
-              <button>
-                <Link href={`/dashboard/halls/${HostHalls[0]._id}/editor`}>
-                  <span>{HostHalls[0].title}</span> {" > "}
-                  <span>{HostHalls[0].location}</span>
-                </Link>
-              </button>
-            </>
-          )}
+        <div className="flex flex-col">
+          {HostHalls.length > 0 &&
+            HostHalls.map((hall) => {
+              return (
+                <button>
+                  <Link href={`/dashboard/halls/${hall._id}/editor`}>
+                    <span>{hall.title}</span> {" > "}
+                    <span>{hall.location}</span>
+                  </Link>
+                </button>
+              );
+            })}
         </div>
       </div>
     </div>

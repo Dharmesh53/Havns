@@ -8,6 +8,7 @@ import { uploadPhoto } from "@actions/uploadActions";
 
 const imageUpload = ({ location }) => {
   const formRef = useRef();
+  const ImageRef = useRef(null);
   const [Loading, setLoading] = useState();
   const [files, setFiles] = useState([]);
   const [Result, setResult] = useState({
@@ -18,7 +19,7 @@ const imageUpload = ({ location }) => {
   const handleinput = (e) => {
     const files = e.target.files;
     const newfiles = [...files].filter((item) =>
-      item.type.startsWith("image/")
+      item.type.startsWith("image/"),
     );
     setFiles((prev) => [...prev, ...newfiles]);
   };
@@ -57,11 +58,12 @@ const imageUpload = ({ location }) => {
             type="file"
             accept="image/*"
             name="images"
-            className="custom-input w-full outline-none rounded-lg"
+            ref={ImageRef}
+            className="hidden"
             multiple
             onChange={handleinput}
           />
-          <div className="flex right-0 justify-center top-0">
+          <div className="flex w-full right-0 justify-center top-0">
             <ButtonSubmit
               value={Loading ? <Loader /> : "Upload"}
               className=" cursor-pointer"
@@ -71,9 +73,9 @@ const imageUpload = ({ location }) => {
         </div>
       </form>
       <div
-        className={`relative cursor-pointer border-2 border-dashed ${
-          files.length === 0 ? "p-20" : "p-10"
-        } border-neutral-300 flex flex-col justify-center items-center mb-20 gap-4 text-neutral-600 rounded-lg mt-5`}
+        className={`relative cursor-pointer border-2 border-dashed ${files.length === 0 ? "p-20" : "p-10"
+          } border-neutral-300 flex flex-col justify-center items-center mb-20 gap-4 text-neutral-600 rounded-lg mt-5`}
+        onClick={() => ImageRef.current?.click()}
       >
         {files.length === 0 ? (
           <TbPhotoPlus size={35} />
