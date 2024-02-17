@@ -15,7 +15,7 @@ const description = ({ info }) => {
         </div>
         <hr />
         <Part
-          heading={"Servies Provided"}
+          heading={"Services Provided"}
           component={<Facility points={info} />}
         />
         <Part

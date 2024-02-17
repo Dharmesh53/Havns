@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import WriteReview from "@components/rating/write";
 
 const booked = () => {
   const { data: session } = useSession();
@@ -15,7 +16,6 @@ const booked = () => {
           const bookingsData = await response.json();
           setBookings(bookingsData);
 
-          // Fetch data for each booking concurrently using Promise.all
           const hallsPromises = bookingsData.map((booking) =>
             fetch(`/api/hall/${booking.hall}`),
           );
@@ -45,6 +45,11 @@ const booked = () => {
                 <p>Hall Name: {halls[index].title}</p>
                 <p>Hall Location: {halls[index].description}</p>
               </div>
+            )}
+            {new Date() > new Date(booking.dates.end) && (
+              <button>
+                <WriteReview Id={halls[index]?._id} />
+              </button>
             )}
           </li>
         ))}

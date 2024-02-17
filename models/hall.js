@@ -56,6 +56,8 @@ const hallSchema = new Schema({
   },
 });
 
+hallSchema.index({ location: "text" });
+
 const HallModel = models.hall || model("hall", hallSchema);
 
 export default HallModel;

@@ -1,20 +1,36 @@
 "use client";
 import Calender from "./datepicker";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
 
 const prices = ({ rates }) => {
   const router = useRouter();
   const [isReserving, setIsReserving] = useState(false);
+  const [stars, setStars] = useState({
+    stars: 0,
+    total: 0,
+  });
   const [dates, setDates] = useState({
     start: new Date(),
     end: new Date(),
   });
 
   const stripePromise = loadStripe(
-    "pk_test_51OhAl8SC96GcZqfUXc4paoG4kzaU7mcQyP8lbNuN0GXxNCkmNmQH9Fa965ot9J9BfWsiK6XEt4RJT2wbBIPvdbom00SAhbKph6"
+    "pk_test_51OhAl8SC96GcZqfUXc4paoG4kzaU7mcQyP8lbNuN0GXxNCkmNmQH9Fa965ot9J9BfWsiK6XEt4RJT2wbBIPvdbom00SAhbKph6",
   );
+
+  useEffect(() => {
+    const fetcher = async () => {
+      const res = await fetch(`/api/review/${rates._id}/?total=true`);
+      const result = await res.json();
+      setStars({
+        stars: result.stars,
+        total: result.total,
+      });
+    };
+    fetcher();
+  }, [rates]);
 
   const changer = (start, end) => {
     setDates({ start, end });
@@ -49,12 +65,11 @@ const prices = ({ rates }) => {
     <div className="rounded-2xl booker border-2 flex flex-col gap-2 ">
       <div className="flex mx-5 items-baseline py-4 gap-1 justify-between">
         <div>
-          <span className="font-bold text-2xl">4.97</span>
-          <span>&#9733; </span>
+          <span className="font-bold text-2xl">{stars.stars}</span>
+          <span> &#9733;</span>
         </div>
         <span className="text-slate-500 text-sm w-[32%]">
-          {" "}
-          30 &#183; Reviews
+          {stars.total}&#183;Reviews
         </span>
       </div>
       <div className="flex flex-col gap-1 mx-5">

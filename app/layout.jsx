@@ -4,8 +4,8 @@ import { Inter } from "next/font/google";
 import { SearchProvider } from "@context/searchContext";
 import Provider from "@context/Provider";
 import { LocationProvider } from "@context/locateContext";
-const inter = Inter({ subsets: ["latin"] });
 
+const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "HavnS - Book Now",
   description: "Marriage Halls just like Heavans",

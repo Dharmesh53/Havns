@@ -1,6 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { PiMapPinBold } from "react-icons/pi";
 import Images from "@components/Images";
@@ -56,7 +56,7 @@ const Page = () => {
               </section>
               <section>
                 {/* <WriteReview Id = {locationId} /> */}
-                <Reviews />
+                <Reviews Id={data._id} />
               </section>
             </>
           ) : (

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Stars from "./stars";
 
-const write = ({Id}) => {
+const write = ({ Id }) => {
   const router = useRouter();
   const [Rating, setRating] = useState(0);
   const [FeedBack, setFeedBack] = useState("");
@@ -11,7 +11,7 @@ const write = ({Id}) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (Rating === 0) return;
-    const data = {Id, Rating, FeedBack };
+    const data = { Id, Rating, FeedBack };
     try {
       const res = await fetch("/api/review/new", {
         method: "POST",
@@ -61,7 +61,7 @@ const write = ({Id}) => {
             >
               Submit
             </button>
-            ) : (
+          ) : (
             <div className="absolute left-0 bottom-0 m-3">{Result}</div>
           )}
         </div>
