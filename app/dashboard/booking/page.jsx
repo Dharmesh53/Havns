@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { format } from "date-fns";
 
 const Booking = () => {
   const [bookings, setBookings] = useState([]);
@@ -33,28 +34,42 @@ const Booking = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Bookings</h1>
-      <div className="flex flex-col gap-10">
-        {bookings.map(({ hall, usersData }, idx) => (
-          <div key={idx}>
+    <div className="flex flex-col gap-3">
+      <div className="text-xl font-semibold">Your Bookings</div>
+      {bookings ? (
+        bookings.map(({ hall, usersData }, idx) => (
+          <div
+            key={idx}
+            className="border border-gray-300 p-4 bg-white rounded-lg"
+          >
+            <h2 className="text-xl font-medium">{hall.title}</h2>
+            <p className="text-gray-600">{hall.location}</p>
             <div>
-              <h3>Booked Users</h3>
-              <ul>
+              <ul className="flex flex-col mt-2 gap-3">
                 {usersData.map(({ user, booking }) => (
-                  <li key={booking.user}>
-                    Start: {new Date(booking.dates.start).toLocaleString()}; ,
-                    End:{new Date(booking.dates.end).toLocaleString()}, Name:
-                    {user.name}, Email: {user.email}
+                  <li
+                    key={booking.user}
+                    className="flex flex-col cursor-pointer "
+                  >
+                    <div className="flex justify-between">
+                      <span className="mr-1 underline">
+                        &#9733; From{" "}
+                        {format(new Date(booking.dates.start), "dd MMMM yyyy")}{" "}
+                        to {format(new Date(booking.dates.end), "dd MMMM yyyy")}
+                      </span>
+                      <span className="ml-3 ">
+                        By {user.name} ( {user.email} )
+                      </span>
+                    </div>
                   </li>
                 ))}
               </ul>
             </div>
-            <h2>{hall.title}</h2>
-            <p>Location: {hall.location}</p>
           </div>
-        ))}
-      </div>
+        ))
+      ) : (
+        <div>No Bookings</div>
+      )}
     </div>
   );
 };

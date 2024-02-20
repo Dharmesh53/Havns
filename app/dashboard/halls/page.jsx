@@ -2,32 +2,66 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-const halls = () => {
-  const [HostHalls, setHostHalls] = useState([]);
+const Halls = () => {
+  const [hostHalls, setHostHalls] = useState([]);
+
   useEffect(() => {
     const fetcher = async () => {
-      const res = await fetch("/api/hall/host", {
-        method: "GET",
-      });
-      const result = await res.json();
-      setHostHalls(result);
+      try {
+        const res = await fetch("/api/hall/host");
+        const result = await res.json();
+
+        const photoPromises = result.map(async (hall) => {
+          const photoRes = await fetch(`/api/photo/${hall._id}`);
+          return photoRes.json();
+        });
+
+        const photoData = await Promise.all(photoPromises);
+
+        const finalResult = result.map((hall, idx) => {
+          return {
+            ...hall,
+            photo: photoData[idx],
+          };
+        });
+
+        setHostHalls(finalResult);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
+
     fetcher();
   }, []);
+
   return (
     <div>
       <div className="flex flex-col gap-5 justify-center text-lg">
-        <div>You are hosting these halls</div>
-        <div className="flex flex-col">
-          {HostHalls.length > 0 &&
-            HostHalls.map((hall) => {
+        <div className="text-xl font-semibold">Your Halls</div>
+        <div className="flex flex-col gap-3">
+          {hostHalls.length > 0 &&
+            hostHalls.map((hall) => {
+              const backgroundStyle = {
+                backgroundImage: `url(${hall.photo.secure_url})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              };
+
               return (
-                <button>
-                  <Link href={`/dashboard/halls/${hall._id}/editor`}>
-                    <span>{hall.title}</span> {" > "}
-                    <span>{hall.location}</span>
-                  </Link>
-                </button>
+                <Link
+                  key={hall._id}
+                  href={`/dashboard/halls/${hall._id}/editor`}
+                >
+                  <div
+                    className="border border-gray-800 rounded-md py-10 px-3 relative"
+                    style={backgroundStyle}
+                  >
+                    <div className="text-xl text-white font-extrabold">
+                      {hall.title}
+                    </div>
+                    <div className="text-white font-bold">{hall.location}</div>
+                  </div>
+                </Link>
               );
             })}
         </div>
@@ -36,4 +70,4 @@ const halls = () => {
   );
 };
 
-export default halls;
+export default Halls;

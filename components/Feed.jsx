@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Loading from "./Loading";
 import { useSearchParams } from "next/navigation";
+import { getFeed } from "./getFeed";
 
 const Feed = () => {
   const [Halls, setHalls] = useState([]);
@@ -13,57 +14,21 @@ const Feed = () => {
   const search = path.get("q");
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        var locationsData = null;
-        if (search != null) {
-          const locationsResponse = await fetch(`api/hall/?q=${search}`);
-          locationsData = await locationsResponse.json();
-        } else {
-          const locationsResponse = await fetch(`api/hall`);
-          locationsData = await locationsResponse.json();
-        }
-
-        const photosPromises = locationsData.map(async (location) => {
-          const photoResponse = await fetch(`api/photo/${location._id}`);
-          const photoData = await photoResponse.json();
-          return photoData;
-        });
-        const photos = await Promise.all(photosPromises);
-
-        var userData = null;
-        if (session) {
-          const userRes = await fetch(`/api/hosts/${session?.user._id}`);
-          userData = await userRes.json();
-        }
-
-        const hallsData = locationsData.map((location, index) => {
-          return {
-            ...location,
-            photos: photos[index],
-            isLiked: userData.liked.includes(location._id),
-          };
-        });
-
-        setHalls(hallsData);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      }
+    const fetcher = async () => {
+      // let hallsDataFromStorage = sessionStorage.getItem("hallsData");
+      // if (hallsDataFromStorage && search == null) {
+      //   setHalls(JSON.parse(hallsDataFromStorage));
+      //   setLoading(false);
+      // } else {
+      const res = await getFeed(search);
+      setHalls(res);
+      setLoading(false);
+      //   if (search == null)
+      //     sessionStorage.setItem("hallsData", JSON.stringify(res));
+      // }
     };
-    getData();
-  }, [session, search]);
-
-  //for filterting the data
-  //const filteredData = useMemo(() => {
-  // if (query === "") {
-  //    return Halls;
-  // }
-  //  return Halls.filter((hall) => {
-  //    return hall.location.toLowerCase().includes(query.toLowerCase());
-  // });
-  //}, [query, Halls]);
+    fetcher();
+  }, [search]);
 
   return (
     <div>
@@ -72,22 +37,28 @@ const Feed = () => {
           <Loading />
         </div>
       ) : (
-        <div className="flex justify-center items-center gap-8 p-20 flex-wrap">
-          {Halls.map((item, i) => {
-            return (
-              <HallCard
-                key={i}
-                id={item._id}
-                photo={item.photos.secure_url}
-                title={item.title}
-                location={item.location}
-                capacity={item.maxcapacity}
-                price={item.veg}
-                isLiked={item.isLiked}
-                session={session?.user._id ? true : false}
-              />
-            );
-          })}
+        <div>
+          <div className="font-semibold text-2xl mt-10 ml-32">
+            {search &&
+              `Search Results for ${search.slice(0, 1).toUpperCase().concat(search.slice(1))}`}
+          </div>
+          <div className="flex justify-center items-center gap-8 p-10 flex-wrap">
+            {Halls?.map((item, i) => {
+              return (
+                <HallCard
+                  key={i}
+                  id={item._id}
+                  photo={item.photos.secure_url}
+                  title={item.title}
+                  location={item.location}
+                  capacity={item.maxcapacity}
+                  price={item.veg}
+                  isLiked={item.isLiked}
+                  session={session?.user._id ? true : false}
+                />
+              );
+            })}
+          </div>
         </div>
       )}
     </div>

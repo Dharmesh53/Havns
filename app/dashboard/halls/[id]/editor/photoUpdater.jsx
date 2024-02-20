@@ -63,7 +63,7 @@ const photoUpdater = ({
         ref={ImageRef}
         onChange={handleImageChange}
       />
-      <div className="flex flex-wrap ">
+      <div className="flex flex-wrap gap-3">
         {data.map((item, i) => {
           return (
             //relative in photocard is doing its magic

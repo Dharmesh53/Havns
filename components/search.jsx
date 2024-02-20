@@ -1,14 +1,12 @@
 import { BiSearch } from "react-icons/bi";
 import { useSearchContext } from "@context/searchContext";
 import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
 
 const search = () => {
   const router = useRouter();
-  const q = useSearchParams().get("q");
   const { query, setQuery } = useSearchContext();
   return (
-    <div>
+    <form action="submit">
       <input
         type="text"
         className="search_input max-[768px]:w-full"
@@ -18,11 +16,12 @@ const search = () => {
       />
       <button
         className="search_btn"
+        type="submit"
         onClick={() => router.push(`/?q=${query}`)}
       >
         <BiSearch />
       </button>
-    </div>
+    </form>
   );
 };
 

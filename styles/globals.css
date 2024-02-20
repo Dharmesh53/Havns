@@ -21,6 +21,11 @@ body {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
+.dashbar {
+  @apply flex flex-1 items-center p-1 px-4 justify-between border-b-gray-200 border;
+  user-select: none;
+}
+
 .photocard,
 .booker {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -261,6 +266,16 @@ img {
   scale: 0.75 !important;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
 @media (max-width: 650px) {
   .loginbox {
     @apply flex mt-0;
