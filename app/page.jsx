@@ -19,3 +19,4 @@ export default function Home() {
 //TODO: move the booking function from prices.jsx to page.jsx
 //TODO: validate the sign in page
 //TODO: complete the lisiting page logic
+//TODO: handleSubmit is not working on controlpanel/account

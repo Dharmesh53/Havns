@@ -16,7 +16,7 @@ const locater = ({ Address, setAddress }) => {
     return () => document.removeEventListener("click", handleClickBody);
   }, [Current]);
 
-  const userlocation = async () => {
+  const userlocation = async (e) => {
     setLoader(true);
     e.preventDefault();
     if ("geolocation" in navigator) {

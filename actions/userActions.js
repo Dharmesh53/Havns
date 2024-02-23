@@ -21,15 +21,22 @@ export async function updateUserRole() {
     return { msg: "error" };
   }
 }
-export async function updateUser(Name, Email, Link) {
+export async function updateUser(name, email, image) {
   try {
     await connectToDB();
     const session = await getServerSession(authOptions);
     if (session) {
-      await User.findByIdAndUpdate(
-        { _id: session?.user._id },
-        { image: Link, name: Name, email: Email },
-      );
+      const updateFields = {};
+      if (name) {
+        updateFields.name = name;
+      }
+      if (email) {
+        updateFields.email = email;
+      }
+      if (image) {
+        updateFields.image = image;
+      }
+      await User.findByIdAndUpdate(session?.user._id, updateFields);
       return { msg: "success" };
     } else {
       return { msg: "error" };
@@ -38,7 +45,6 @@ export async function updateUser(Name, Email, Link) {
     return { msg: "error" };
   }
 }
-
 export async function updateUserBooking(bookingObj) {
   try {
     await connectToDB();

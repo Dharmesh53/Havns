@@ -63,13 +63,13 @@ const Nav = () => {
               } user ease-out duration-300 max-[426px]:p-0`}
             onClick={() => setDropdown((d) => !d)}
           >
-            <span className="inline-block align-middle text-xl w-[2.8rem] h-[2.8rem]">
+            <span className="flex w-[2.8rem] h-[2.8rem]">
               {session?.user ? (
                 session?.user.image ? (
                   <img
                     src={session?.user.image}
                     alt="A"
-                    className="rounded-full"
+                    className="rounded-full object-cover"
                   />
                 ) : (
                   <span className="text-white bg-[#ef4444] text-xl font-medium w-[2.8rem] h-[2.8rem] flex items-center justify-center rounded-full caret-transparent profile">

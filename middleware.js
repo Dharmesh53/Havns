@@ -15,7 +15,7 @@ export default withAuth(
         return !!token;
       },
     },
-  }
+  },
 );
 export const config = {
   matcher: ["/profile/:path*", "/protected/:path*", "/dashboard/:path*"],

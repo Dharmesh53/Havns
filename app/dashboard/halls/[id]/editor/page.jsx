@@ -15,6 +15,7 @@ const Editor = () => {
   const [ImageValue, setImageValue] = useState([]);
   const [deleteImage, setDeleteImage] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState({
     success: "",
     error: "",
@@ -22,7 +23,7 @@ const Editor = () => {
 
   useEffect(() => {
     const fetcher = async () => {
-      const res = await fetch(`/api/hall/${hallId}`, {
+      const res = await fetch(`/api/hall/${hallId}/?editor=true`, {
         method: "GET",
       });
       if (res.status === 404) {
@@ -47,49 +48,42 @@ const Editor = () => {
   };
 
   const handleSaveClick = async () => {
-    if (ImageValue.length + data.length < 5)
-      return setResult({ error: "At least 5 photos are required" });
+    if (!isSubmitting) {
+      setIsSubmitting(true);
 
-    let res1 = { msg: null };
-    let res2 = { msg: null };
-    let res3 = { msg: null };
-
-    try {
-      if (ImageValue.length > 0) {
+      try {
+        if (ImageValue.length + data.length < 5) {
+          throw new Error("At least 5 photos are required");
+        }
         const formData = new FormData();
         ImageValue.forEach((image) => formData.append("files", image));
-        res1 = await uploadPhoto(formData, hallId);
-      }
 
-      res2 = await updateHall(data);
-      res3 = await photoDeleter();
+        const [res1, res2, res3] = await Promise.all([
+          uploadPhoto(formData, hallId),
+          updateHall(data),
+          photoDeleter(),
+        ]);
 
-      if (
-        res1.msg === "success" &&
-        res2.msg === "success" &&
-        res3.msg === "success"
-      ) {
-        setResult({
-          success: "Successfully updated hall data",
-        });
-      } else if (!res1.null && res2.msg === "success" && !res3.msg) {
-        setResult({
-          success: "Nothing to update",
-        });
-      } else {
-        setResult({
-          error: "Error occurred, couldn't update hall",
-        });
+        if (res1.msg !== "success") {
+          throw new Error("Photo upload failed");
+        }
+        if (res2.msg !== "success") {
+          throw new Error("Hall update failed");
+        }
+        if (res3.msg !== "success" && res3.msg !== null) {
+          throw new Error("Photo deletion failed");
+        }
+
+        setResult({ success: "Successfully updated your hall!" });
+      } catch (error) {
+        console.error(error);
+        setResult({ error: error.message || "An unexpected error occurred" });
+      } finally {
+        setIsEditing(false);
+        setIsSubmitting(false);
       }
-    } catch (error) {
-      setResult({
-        error: error.message || "An unexpected error occurred",
-      });
     }
-
-    setIsEditing(false);
   };
-
   const handleInputChange = (key, value) => {
     setData((prevData) => ({
       ...prevData,
@@ -162,10 +156,16 @@ const Editor = () => {
       </div>
       {isEditing ? (
         <button
-          className="bg-red-500 text-white font-semibold rounded-md p-3 mt-8"
-          onClick={handleSaveClick}
+          className={`text-white font-semibold  ${isSubmitting ? "bg-gray-300" : "bg-red-500"} rounded-md p-3 mt-8`}
+          onClick={() => {
+            if (!isSubmitting) {
+              setIsSubmitting(true);
+              handleSaveClick();
+            }
+          }}
+          disabled={isSubmitting}
         >
-          Save
+          {isSubmitting ? "Updating..." : "Save"}
         </button>
       ) : (
         <button

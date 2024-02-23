@@ -14,6 +14,7 @@ const listing = () => {
       });
       const result = await res.json();
       setData(result);
+      console.log(result);
     };
     fetcher();
   }, []);
@@ -41,7 +42,7 @@ const listing = () => {
     <div>
       <div className="font-semibold text-xl">Complete your listing</div>
       <div className="flex flex-col gap-4 mt-5">
-        {data?.map((hall, idx) => {
+        {data?.map((hall) => {
           return (
             <button key={hall} onClick={() => redirecter(hall)}>
               <span className="underline">

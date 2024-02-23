@@ -88,12 +88,12 @@ const page = () => {
         {data.map((item, i) => {
           return (
             <motion.div
+              key={i}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: i * 0.15 }}
             >
               <Counts
-                key={i}
                 name={item.name}
                 Value={item.state}
                 setValue={item.setState}
