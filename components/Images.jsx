@@ -1,9 +1,16 @@
 import { dynamicBlurDataUrl } from "@utils/dynamicBlurData";
 import { BiSolidPlusCircle } from "react-icons/bi";
 import ImageBox from "./ImageBox";
+import { useEffect } from "react";
 
-const Images = async ({ value }) => {
-  const placer = await Promise.all(value.map((url) => dynamicBlurDataUrl(url)));
+const Images = ({ value, setView }) => {
+  var placer = [];
+  useEffect(() => {
+    const blur = async () => {
+      placer = await Promise.all(value.map((url) => dynamicBlurDataUrl(url)));
+    };
+    blur();
+  }, [value]);
   return (
     <div className="grid grid-cols-4 grid-rows-2 grid-flow-col gap-2 h-96">
       <div className="col-span-2 row-span-2 relative">
@@ -26,15 +33,18 @@ const Images = async ({ value }) => {
           placeholder={placer[3]}
         />
       </div>
-      <div className="relative w-full flex flex-col justify-center rounded-br-2xl items-center cursor-pointer overflow-hidden">
+      <button
+        onClick={() => setView(true)}
+        className="relative w-full flex flex-col justify-center rounded-br-2xl items-center cursor-pointer overflow-hidden"
+      >
         <div className="absolute blur-lg z-[0] hover:blur-sm duration-300">
-          <ImageBox link={value[4]} classes="rounded-br-2xl"/>
+          <ImageBox link={value[4]} classes="rounded-br-2xl" />
         </div>
         <button className="text-2xl z-[1] text-white pointer-events-none">
           <BiSolidPlusCircle />
         </button>
-        <span className="z-[1] text-white pointer-events-none" >Show More</span>
-      </div>
+        <span className="z-[1] text-white pointer-events-none">Show More</span>
+      </button>
     </div>
   );
 };
