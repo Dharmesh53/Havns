@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import "leaflet/dist/leaflet.css";
+import "@styles/leaflet.css"
 import getMap from "./leaflet";
 
 export default function Map({ location }) {

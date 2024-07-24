@@ -1,33 +1,32 @@
 import { useState, useEffect } from "react";
 
-const 
-ImageBox = ({ link, classes, placeholder, feed }) => {
-  const [ImageLoaded, setImageLoaded] = useState(false);
+const ImageBox = ({ link, classes, placeholder, feed }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     const img = new Image();
-    img.onload = () => {
-      setImageLoaded(true);
-    };
+    img.onload = () => setImageLoaded(true);
     img.src = link;
   }, [link]);
 
   return (
-    <>
-      {!ImageLoaded && (
+    <div className="relative w-full h-full">
+      {!imageLoaded && (
         <img
           src={placeholder}
-          className={`${classes} w-full h-full object-cover`}
+          alt="*"
+          className={`${classes} absolute inset-0 w-full h-full object-cover`}
         />
       )}
-      {ImageLoaded && (
-        <img
-          src={link}
-          className={`${classes} w-full h-full object-cover ${feed?"":'hover:brightness-[0.80]'} duration-200`}
-        />
-      )}
-    </>
+      <img
+        src={link}
+        alt="Actual"
+        className={`${classes} w-full h-full object-cover ${imageLoaded ? 'opacity-100' : 'opacity-0'} ${feed ? '' : 'hover:brightness-[0.80]'} transition-opacity duration-500`}
+        style={{ transition: 'opacity 0.5s ease-in-out' }}
+      />
+    </div>
   );
 };
 
 export default ImageBox;
+

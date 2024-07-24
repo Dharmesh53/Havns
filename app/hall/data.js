@@ -17,9 +17,6 @@ export async function getData(locationId) {
       photos: photoData.map((photo) => photo.secure_url),
     };
 
-    accumulate.photos.push(
-      "https://res.cloudinary.com/dkux7gsfb/image/upload/v1706484320/nextjs_upload/k8xg3ojktreg1wwevtkg.jpg",
-    );
     return accumulate;
   } catch (error) {
     console.error("Error fetching data:", error);

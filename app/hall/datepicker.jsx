@@ -13,6 +13,7 @@ const Calender = ({ handler, disable }) => {
       key: "selection",
     },
   ]);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   // Function to generate an array of dates within a range
   const generateDatesArray = (startDate, endDate) => {
@@ -24,44 +25,57 @@ const Calender = ({ handler, disable }) => {
 
   // Function to determine if a date is disabled
   const isDateDisabled = () => {
-    //use flatMap to get unique dates and flatten the array instead of for loop
     const dates = disable.flatMap((disabledRange) => {
       const { start, end } = disabledRange.dates;
       return generateDatesArray(start, end);
     });
     return dates;
-
-    // const temp = [];
-    // for (let i = 0; i < disable.length; i++) {
-    //   const { start, end } = disable[i].dates;
-    //   generateDatesArray(start, end).forEach((element) => {
-    //     temp.push(element);
-    //   });
-    // }
-    // return temp;
   };
 
   const handleDateChange = (item) => {
     setState([item.selection]);
     handler(item.selection.startDate, item.selection.endDate);
+    setIsCalendarOpen(false);
   };
 
   const disabledDates = isDateDisabled();
 
   return (
-    <div>
-      <DateRange
-        editableDateInputs={true}
-        onChange={(item) => handleDateChange(item)}
-        moveRangeOnFirstSelection={false}
-        minDate={new Date()}
-        ranges={state}
-        direction="vertical"
-        // disabledDates={[addDays(new Date(), 4), addDays(new Date(), 7)]}
-        disabledDates={disabledDates}
-      />
-    </div>
+    <div className="w-full relative flex justify-evenly">
+      <div
+        className="border-y p-2 w-full my-7 flex cursor-pointer"
+        onClick={() => setIsCalendarOpen(!isCalendarOpen)}
+      >
+        <span className="w-full text-md flex justify-evenly ">
+          <span >
+            <span className="text-gray-400">From  -  </span>
+            {`${state[0].startDate.toLocaleDateString('en-GB')}`}
+          </span>
+          <span>
+            <span className="text-gray-400">To  -  </span>
+            {`${state[0].endDate.toLocaleDateString('en-GB')}`}
+          </span>
+        </span>
+      </div>
+
+      {
+        isCalendarOpen && (
+          <div className="absolute border-2 z-10">
+            <DateRange
+              editableDateInputs={true}
+              onChange={(item) => handleDateChange(item)}
+              moveRangeOnFirstSelection={false}
+              minDate={new Date()}
+              ranges={state}
+              direction="vertical"
+              disabledDates={disabledDates}
+            />
+          </div>
+        )
+      }
+    </div >
   );
 };
 
 export default Calender;
+

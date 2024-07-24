@@ -5,80 +5,75 @@ import { useSearchParams } from "next/navigation";
 import { PiMapPinBold } from "react-icons/pi";
 import Images from "@components/Images";
 import { getData } from "./data";
-// import ImgSkeleton from "./ImgSkeleton";
 import Description from "./description";
 import Reviews from "@components/reviews/AllReviews";
+import Loader from "@components/Loading";
 import Footer from "./footer";
 import Viewer from "@app/hall/imgView";
-import { AnimatePresence, motion } from "framer-motion";
 
 const Map = dynamic(() => import("@components/map/map"), {
-  loading: () => <p>Loading...</p>,
-  ssr: false,
+    loading: () => <Loader />,
+    ssr: false,
 });
 
 const Page = () => {
-  const [data, setData] = useState({});
-  const searchParams = useSearchParams();
-  const [view, setView] = useState(null);
+    const [data, setData] = useState({});
+    const searchParams = useSearchParams();
+    const [view, setView] = useState(null);
 
-  const locationId = searchParams.get("id");
+    const locationId = searchParams.get("id");
 
-  useEffect(() => {
-    const fetcher = async () => {
-      const temp = await getData(locationId);
-      setData(temp);
-    };
-    fetcher();
-  }, [locationId]);
+    useEffect(() => {
+        const fetcher = async () => {
+            const temp = await getData(locationId);
+            setData(temp);
+        };
+        fetcher();
+    }, [locationId]);
 
-  return (
-    <div className="relative">
-      {!view ? (
-        <div className="flex justify-center flex-col items-center mt-8">
-          <div className="flex justify-center w-[79vw]">
-            <div className="flex flex-col gap-10">
-              {data && data.location && data.title ? (
-                <>
-                  <section>
-                    <div className="my-5">
-                      <span className="font-bold flex items-center gap-2 text-xl">
-                        <PiMapPinBold />
-                        {data.location}
-                      </span>
-                      <h2 className="font-medium underline ">{data.title}</h2>
+    return (
+        <div className="flex flex-col min-h-screen">
+            {!view ? (
+                <div className="flex flex-col flex-grow items-center mt-8">
+                    <div className="w-full max-w-[1550px] px-4">
+                        {data && data.location && data.title ? (
+                            <>
+                                <section className="my-5">
+                                    <div className="flex items-center gap-2 text-xl font-bold">
+                                        <PiMapPinBold />
+                                        {data.location}
+                                    </div>
+                                    <h2 className="underline">{data.title}</h2>
+                                </section>
+                                <section>
+                                    {data.photos && (
+                                        <Images value={data.photos} setView={setView} />
+                                    )}
+                                </section>
+                                <section>
+                                    <Description info={data} />
+                                </section>
+                                <section>
+                                    {data.location && <Map location={data.location} />}
+                                </section>
+                                <section>
+                                    <Reviews Id={data._id} />
+                                </section>
+                            </>
+                        ) : (
+                            <div className="justify-center items-center mt-8">
+                                <Loader />
+                            </div>
+                        )}
                     </div>
-                    {/* {!data.photos && <ImgSkeleton /> */}
-                    {data.photos && (
-                      <Images value={data.photos} setView={setView} />
-                    )}
-                  </section>
-                  <section>
-                    <Description info={data} />
-                  </section>
-                  <section>
-                    {data.location && <Map location={data.location} />}
-                  </section>
-                  <section>
-                    <Reviews Id={data._id} />
-                  </section>
-                </>
-              ) : (
-                <div className="flex justify-center items-center mt-8">
-                  <p>Loading...</p>
                 </div>
-              )}
-            </div>
-          </div>
-          <Footer />
+            ) : (
+                <Viewer value={data.photos} setView={setView} />
+            )}
+            <Footer className="mt-auto" />
         </div>
-      ) : (
-        <div>
-          <Viewer value={data.photos} setView={setView} />
-        </div>
-      )}
-    </div>
-  );
+    );
 };
 
 export default Page;
+

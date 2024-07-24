@@ -22,12 +22,18 @@ const Hallcard = ({
   const [like, setLike] = useState(isLiked);
   const router = useRouter();
 
-  useEffect(() => {
-    const blur = async () => {
+  const blur = async (photo) => {
+    try {
       const blurred = await dynamicBlurDataUrl(photo);
       setPlacer(blurred);
-    };
-    blur();
+    } catch (error) {
+      console.error('Error blurring image:', error);
+      setPlacer('');
+    }
+  };
+
+  useEffect(() => {
+    blur(photo);
   }, [photo]);
 
   const handleClick = async () => {
@@ -45,7 +51,7 @@ const Hallcard = ({
   };
 
   return (
-    <div className="border rounded-xl h-[22rem] hallcard duration-300 ease-out">
+    placer.length > 0 && (<div className="border rounded-xl h-[22rem] hallcard duration-300 ease-out">
       <div className="overflow-hidden flex relative items-center rounded-t-xl h-1/2">
         <ImageBox link={photo} placeholder={placer} feed={true} />
         {like ? (
@@ -74,7 +80,7 @@ const Hallcard = ({
           </div>
         </div>
       </Link>
-    </div>
+    </div>)
   );
 };
 

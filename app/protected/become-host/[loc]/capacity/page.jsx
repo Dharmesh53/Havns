@@ -104,7 +104,7 @@ const page = () => {
       </motion.div>
       <div className=" fixed w-screen bottom-0 ">
         <Footer
-          back="/protected/become-host/places"
+          back={`/protected/become-host/${pathname.substring(23, 47)}/places`}
           next=""
           value={Loading ? "Working..." : "Next"}
           handle={postabout}

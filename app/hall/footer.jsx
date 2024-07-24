@@ -7,7 +7,7 @@ import {
 
 const footer = () => {
   return (
-    <div className="flex align-bottom justify-center items-center text-sm gap-7 my-10">
+    <div className="flex justify-center items-center text-sm gap-7 my-10">
       <span>© 2023 Havns, Inc.</span>
       |
       <a href="#" className="font-light hover:underline">

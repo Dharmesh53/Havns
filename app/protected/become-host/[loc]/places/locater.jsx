@@ -21,13 +21,13 @@ const locater = ({ Address, setAddress }) => {
     e.preventDefault();
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(async (position) => {
-        const url = `/api/geocode/?lat=${position.coords.latitude}&lon=${position.coords.longitude}`;
+        const url = `https://geocode.maps.co/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&api_key=65d11dee28d55755262977iuj53c1b4`
         const options = {
           method: "GET",
         };
         try {
           const response = await fetch(url, options);
-          const data = await response.text();
+          const data = await response.json();
           setLoader(false);
           setAddress({ ...Address, loca: data.display_name });
         } catch (error) {

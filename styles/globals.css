@@ -1,14 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Satisfy&display=swap");
-@import url("https://unpkg.com/leaflet@1.9.4/dist/leaflet.css");
-@import url("leaflet/dist/leaflet.css");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 * {
   box-sizing: border-box;
 }
+
 body {
   overflow-x: hidden;
 }
@@ -18,6 +18,7 @@ body {
   color: #ef4444;
   font-size: 1.8rem;
 }
+
 .navbar {
   @apply flex items-center p-3 rounded-full gap-60 relative;
   user-select: none;
@@ -33,12 +34,15 @@ body {
 .booker {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
+
 .hallcard:hover {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
+
 .hallcard:focus {
   box-shadow: none;
 }
+
 .location,
 .custom-input {
   box-shadow:
@@ -47,11 +51,13 @@ body {
 }
 
 .search_input {
-  @apply border border-gray-300  w-96 rounded-full p-2 text-black focus:outline-none focus:ring-0;
+  @apply border border-gray-300 w-96 rounded-full p-2 text-black focus:outline-none focus:ring-0;
 }
+
 .search_btn {
   @apply rounded-full bg-red-500 text-white absolute top-[0.3rem] right-2 p-2;
 }
+
 img {
   -webkit-backface-visibility: hidden;
   -webkit-transform: translateZ(0);
@@ -94,6 +100,7 @@ img {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   z-index: 99;
 }
+
 .dropdown-enter {
   opacity: 0;
   transform: translateY(-10px);
@@ -127,6 +134,7 @@ img {
   user-select: none;
   -webkit-user-select: none;
 }
+
 .host span {
   color: white;
   display: block;
@@ -170,9 +178,11 @@ img {
   opacity: 1;
   transition: all 900ms cubic-bezier(0.48, 0, 0.12, 1);
 }
+
 .custom-input::-webkit-file-upload-button {
   visibility: hidden;
 }
+
 .custom-input::before {
   content: "Select some images";
   display: inline-block;
@@ -190,9 +200,11 @@ img {
   transition: 200ms ease-out;
   font-size: 10pt;
 }
+
 .custom-input:hover::before {
   border-color: black;
 }
+
 .custom-input:active::before {
   background-color: #f7f7f7;
   border-color: #000000;
@@ -238,9 +250,11 @@ img {
   0% {
     background-position: 0 0;
   }
+
   50% {
     background-position: 400% 0;
   }
+
   100% {
     background-position: 0 0;
   }
@@ -265,6 +279,7 @@ img {
 .leaflet-control-attribution {
   visibility: hidden !important;
 }
+
 .leaflet-right {
   scale: 0.75 !important;
 }
@@ -279,46 +294,58 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
 @media (max-width: 650px) {
   .loginbox {
     @apply flex mt-0;
   }
+
   .left {
     @apply mt-16 bg-white rounded-xl py-10 px-8;
   }
+
   .right {
     @apply max-w-none fixed;
   }
+
   .login_bg {
     @apply rounded-none w-full;
   }
+
   .right {
     @apply absolute opacity-10 contrast-50 z-[-1];
   }
 }
+
 @media (min-device-width: 650px) and (max-device-width: 900px) {
   .form {
     @apply w-[18rem];
   }
+
   .leftup {
     @apply text-3xl;
   }
 }
+
 @media (max-width: 768px) {
   .navbar {
     @apply w-full rounded-none gap-4 justify-between;
     box-shadow: none;
   }
+
   .search_box {
-    @apply absolute top-16  w-full mt-3 pr-5;
+    @apply absolute top-16 w-full mt-3 pr-5;
   }
+
   .search_box:focus-within {
     box-shadow: none;
   }
+
   .search_btn {
     @apply mr-5;
   }
 }
+
 @media (min-device-width: 768px) and (max-device-width: 1168px) {
   .navbar {
     @apply gap-14;
