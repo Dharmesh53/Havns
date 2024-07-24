@@ -35,5 +35,5 @@ export default function Map({ location }) {
         }
     };
 
-    return <div id="map" className="h-[63vh] rounded-2xl"></div>;
+    return <div id="map" className="h-[63vh] rounded-2xl" ></div>;
 }
