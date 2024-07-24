@@ -10,11 +10,7 @@ import Reviews from "@components/reviews/AllReviews";
 import Loader from "@components/Loading";
 import Footer from "./footer";
 import Viewer from "@app/hall/imgView";
-
-const Map = dynamic(() => import("@components/map/map"), {
-    loading: () => <Loader />,
-    ssr: false,
-});
+import Map from "@components/map/map"
 
 const Page = () => {
     const [data, setData] = useState({});
